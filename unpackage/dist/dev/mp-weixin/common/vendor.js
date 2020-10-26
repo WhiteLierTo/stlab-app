@@ -8024,17 +8024,7 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */
+/* 11 */
 /*!**************************************!*\
   !*** D:/stlab-app/common/httpApi.js ***!
   \**************************************/
@@ -8053,7 +8043,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 22 */
+/* 12 */
 /*!******************************************!*\
   !*** D:/stlab-app/common/httpRequest.js ***!
   \******************************************/
@@ -8061,8 +8051,8 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 23));
-var _cache = _interopRequireDefault(__webpack_require__(/*! ./cache */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 13));
+var _cache = _interopRequireDefault(__webpack_require__(/*! ./cache */ 14));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 module.exports = {
   config: function config(name) {
@@ -8159,7 +8149,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 23 */
+/* 13 */
 /*!*************************************!*\
   !*** D:/stlab-app/common/config.js ***!
   \*************************************/
@@ -8173,7 +8163,7 @@ module.exports = {
   ROOTPATH: ROOTPATH };
 
 /***/ }),
-/* 24 */
+/* 14 */
 /*!************************************!*\
   !*** D:/stlab-app/common/cache.js ***!
   \************************************/
@@ -8269,7 +8259,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 25 */
+/* 15 */
 /*!************************************!*\
   !*** D:/stlab-app/common/toast.js ***!
   \************************************/
