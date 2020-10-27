@@ -1,1 +1,1 @@
-<view>消息通知</view>
+<view><uni-list vue-id="1dd1a928-1" bind:__l="__l" vue-slots="{{['default']}}"><block wx:for="{{listData}}" wx:for-item="item" wx:for-index="__i0__" wx:key="id"><uni-list-chat vue-id="{{('1dd1a928-2-'+__i0__)+','+('1dd1a928-1')}}" title="{{item.author_name}}" avatar="{{item.cover}}" note="{{item.title}}" time="{{item.published_at}}" clickable="{{true}}" badge-positon="left" badge-text="dot" data-event-opts="{{[['^click',[['listHandle',['$0'],[[['listData','id',item.id]]]]]]]}}" bind:click="__e" bind:__l="__l"></uni-list-chat></block></uni-list></view>

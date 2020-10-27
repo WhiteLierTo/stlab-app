@@ -1,0 +1,22 @@
+.detail.data-v-ed2c8c0e {
+  padding: 30px;
+}
+.detail .title.data-v-ed2c8c0e {
+  font-size: 20px;
+  font-weight: 600;
+}
+.detail .contain.data-v-ed2c8c0e {
+  font-size: 18px;
+  padding: 15px 0;
+}
+.detail .time.data-v-ed2c8c0e {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  padding-right: 25px;
+}
+

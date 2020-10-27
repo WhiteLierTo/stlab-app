@@ -2,13 +2,15 @@
   "pages": [
     "pages/index/index",
     "pages/online/index",
-    "pages/list/index"
+    "pages/online/info-detail",
+    "pages/list/index",
+    "pages/list/detail"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#178fff",
     "backgroundColor": "#F8F8F8"
   },
   "usingComponents": {}

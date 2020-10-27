@@ -1,0 +1,25 @@
+.uni-input.data-v-0032eacd {
+  border: 1px solid #eee;
+}
+.detail .title.data-v-0032eacd {
+  font-size: 18px;
+  color: #1a8fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+.detail .form1.data-v-0032eacd {
+  padding: 10px;
+}
+.detail .form1 .tp.data-v-0032eacd {
+  padding-bottom: 10px;
+}
+.detail .finish.data-v-0032eacd {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #fff;
+  background-color: #178fff;
+  margin-top: 25px;
+}
+

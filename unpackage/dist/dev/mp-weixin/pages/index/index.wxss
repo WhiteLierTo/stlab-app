@@ -1,8 +1,7 @@
 
 @charset "UTF-8";
-uni-page-body {
-	background-color: #fff !important;
-}
+
+
 
 /* 头条小程序组件内不能引入字体 */
 page {

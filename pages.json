@@ -9,7 +9,13 @@
 		{
 			"path": "pages/online/index",
 			"style": {
-				"navigationBarTitleText": "在线委托"
+				"navigationBarTitleText": "委托首页"
+			}
+		},
+		{
+			"path": "pages/online/info-detail",
+			"style": {
+				"navigationBarTitleText": "新增/编辑检材详情"
 			}
 		},
 		{
@@ -17,12 +23,19 @@
 			"style": {
 				"navigationBarTitleText": "消息通知"
 			}
+		},
+		{
+			"path": "pages/list/detail",
+			"style": {
+				"navigationBarTitleText": "消息详情"
+			}
 		}
+
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#178fff",
 		"backgroundColor": "#F8F8F8"
 	}
 }

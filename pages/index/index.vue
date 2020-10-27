@@ -23,14 +23,14 @@
 				list: [{
 						url: '../../static/img/online.png',
 						text: '在线委托',
-						path: 'pages/online/index'
+						path: '../online/index'
 					},
 					{
 						url: '../../static/img/msg.png',
 						text: '消息通知',
 						badge: '2',
 						type: "error",
-						path: 'pages/list/index'
+						path: '../list/index'
 					},
 
 				]
@@ -50,9 +50,7 @@
 <style>
 	@charset "UTF-8";
 
-	uni-page-body {
-		background-color: #fff !important;
-	}
+	
 
 	/* 头条小程序组件内不能引入字体 */
 	/* #ifdef MP-TOUTIAO */
