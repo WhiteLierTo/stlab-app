@@ -7,6 +7,9 @@
 uni-textarea {
   width: 100% !important;
 }
+.uni-common-mt {
+  border-bottom: 1px solid #eee;
+}
 .box .input {
   display: -webkit-box;
   display: -webkit-flex;

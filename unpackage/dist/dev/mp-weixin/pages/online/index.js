@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniSegmentedControl: function() {
-    return __webpack_require__.e(/*! import() | components/uni-segmented-control/uni-segmented-control */ "components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/components/uni-segmented-control/uni-segmented-control.vue */ 80))
+    return __webpack_require__.e(/*! import() | components/uni-segmented-control/uni-segmented-control */ "components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/components/uni-segmented-control/uni-segmented-control.vue */ 82))
   }
 }
 var render = function() {
@@ -134,7 +134,12 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 30));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 30));
+
+
+
+
+
 
 
 
@@ -382,13 +387,15 @@ var _permission = _interopRequireDefault(__webpack_require__(/*! ../../common/pe
 //
 //
 //
-var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ 34);var Info = function Info() {__webpack_require__.e(/*! require.ensure | pages/online/info */ "pages/online/info").then((function () {return resolve(__webpack_require__(/*! ./info.vue */ 87));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};function getDate(type) {var date = new Date();var year = date.getFullYear();var month = date.getMonth() + 1;var day = date.getDate();if (type === 'start') {year = year - 60;} else if (type === 'end') {year = year + 2;}month = month > 9 ? month : '0' + month;day = day > 9 ? day : '0' + day;return "".concat(year, "-").concat(month, "-").concat(day);}var sourceType = [['camera'], ['album'], ['camera', 'album']];var _default = { components: { Info: Info }, data: function data() {return { items: ['1.委托信息', '2.检材信息', '3.委托附件'], array: [{ name: '中国' }, { name: '美国' }, { name: '巴西' }, { name: '日本' }], current: 0, index: 0, activeColor: '#007aff', styleType: 'text', date: getDate({ format: true }), startDate: getDate('start'), endDate: getDate('end'), time: '12:01', imageList: [], sourceType: ['拍照', '相册', '拍照或相册'], sizeType: ['压缩', '原图', '压缩或原图'] };}, onUnload: function onUnload() {this.imageList = [];this.sourceType = ['拍照', '相册', '拍照或相册'];}, methods: { onClickItem: function onClickItem(e) {if (this.current !== e.currentIndex) {this.current = e.currentIndex;}}, bindDateChange: function bindDateChange(e) {this.date = e.detail.value;}, bindTimeChange: function bindTimeChange(e) {this.time = e.detail.value;}, bindPickerChange: function bindPickerChange(e) {console.log('picker发送选择改变，携带值为：' + e.detail.value);this.index = e.detail.value;}, formSubmit: function formSubmit(e) {console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value)); //定义表单规则
+//
+//
+//
+//
+//
+var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ 34);var Info = function Info() {__webpack_require__.e(/*! require.ensure | pages/online/info */ "pages/online/info").then((function () {return resolve(__webpack_require__(/*! ./info.vue */ 89));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Attachment = function Attachment() {__webpack_require__.e(/*! require.ensure | pages/online/attachment */ "pages/online/attachment").then((function () {return resolve(__webpack_require__(/*! ./attachment.vue */ 96));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};function getDate(type) {var date = new Date();var year = date.getFullYear();var month = date.getMonth() + 1;var day = date.getDate();if (type === 'start') {year = year - 60;} else if (type === 'end') {year = year + 2;}month = month > 9 ? month : '0' + month;day = day > 9 ? day : '0' + day;return "".concat(year, "-").concat(month, "-").concat(day);}var sourceType = [['camera'], ['album'], ['camera', 'album']];var _default = { components: { Info: Info, Attachment: Attachment }, data: function data() {return { items: ['1.委托信息', '2.检材信息', '3.委托附件'], array: [{ name: '中国' }, { name: '美国' }, { name: '巴西' }, { name: '日本' }], current: 0, index: 0, activeColor: '#007aff', styleType: 'text', date: getDate({ format: true }), startDate: getDate('start'), endDate: getDate('end'), time: '12:01', imageList: [], sourceType: ['拍照', '相册', '拍照或相册'], sizeType: ['压缩', '原图', '压缩或原图'] };}, onUnload: function onUnload() {this.imageList = [];this.sourceType = ['拍照', '相册', '拍照或相册'];}, methods: { onClickItem: function onClickItem(e) {if (this.current !== e.currentIndex) {this.current = e.currentIndex;}}, bindDateChange: function bindDateChange(e) {this.date = e.detail.value;}, bindTimeChange: function bindTimeChange(e) {this.time = e.detail.value;}, bindPickerChange: function bindPickerChange(e) {console.log('picker发送选择改变，携带值为：' + e.detail.value);this.index = e.detail.value;}, formSubmit: function formSubmit(e) {console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value)); //定义表单规则
       var rule = [{ name: 'nickname', checkType: 'string', checkRule: '1,3', errorMsg: '姓名应为1-3个字符' }, { name: 'gender', checkType: 'in', checkRule: '男,女', errorMsg: '请选择性别' }, { name: 'loves', checkType: 'notnull', checkRule: '', errorMsg: '请选择爱好' }]; //进行表单检查
       var formData = e.detail.value;var checkRes = graceChecker.check(formData, rule);if (checkRes) {uni.showToast({ title: '验证通过!', icon: 'none' });} else {uni.showToast({ title: graceChecker.error, icon: 'none' });}}, formReset: function formReset(e) {console.log('清空数据');}, chooseImage: function () {var _chooseImage = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;var isContinue;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(this.imageList.length === 9)) {_context.next = 7;break;}_context.next = 3;return this.isFullImg();case 3:isContinue = _context.sent;console.log('是否继续?', isContinue);if (isContinue) {_context.next = 7;break;}return _context.abrupt("return");case 7:uni.chooseImage({ sourceType: sourceType[this.sourceTypeIndex], // sizeType: this.sizeType[2],
-                  count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex], success: function success(res) {_this.imageList = _this.imageList.concat(res.tempFilePaths);}, fail: function fail(err) {uni.getSetting({ success: function success(res) {var authStatus = false;switch (_this.sourceTypeIndex) {case 0:authStatus = res.authSetting['scope.camera'];break;case 1:authStatus = res.authSetting['scope.album'];break;case 2:
-                            authStatus = res.authSetting['scope.album'] && res.authSetting['scope.camera'];
-                            break;
-                          default:
+                  count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex], success: function success(res) {_this.imageList = _this.imageList.concat(res.tempFilePaths);}, fail: function fail(err) {uni.getSetting({ success: function success(res) {var authStatus = false;switch (_this.sourceTypeIndex) {case 0:authStatus = res.authSetting['scope.camera'];break;case 1:authStatus = res.authSetting['scope.album'];break;case 2:authStatus = res.authSetting['scope.album'] && res.authSetting['scope.camera'];break;default:
                             break;}
 
                         if (!authStatus) {

@@ -15,10 +15,12 @@ uni-button[size='mini'].data-v-a76913fe {
   text-align: center;
   background-color: #178fff;
   color: #fff;
-  padding: 6px 8px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 .box .info .info-content .text1.data-v-a76913fe {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -34,6 +36,11 @@ uni-button[size='mini'].data-v-a76913fe {
   border-radius: 5px;
   border: 1px solid #1890ff;
   margin: 2%;
+}
+.box .info .info-content .text1 .del.data-v-a76913fe {
+  position: absolute;
+  right: -10px;
+  top: -20px;
 }
 .box .info-bottom.data-v-a76913fe {
   display: -webkit-box;

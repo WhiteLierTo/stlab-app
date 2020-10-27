@@ -1,7 +1,8 @@
 <template>
 	<view class="box">
 		<view class="uni-padding-wrap uni-common-mt">
-			<uni-segmented-control :current="current" :values="items" :style-type="styleType" :active-color="activeColor" @clickItem="onClickItem" />
+			<uni-segmented-control :current="current" :values="items" :style-type="styleType" :active-color="activeColor"
+			 @clickItem="onClickItem" />
 		</view>
 		<view class="content">
 			<view v-if="current === 0">
@@ -54,7 +55,7 @@
 						<view class="uni-form-item uni-column">
 							<view class="title">案件简要</view>
 							<textarea placeholder="请输入案件简要" />
-						</view>
+							</view>
 						<view class="uni-form-item uni-column">
 							<view class="title">委托人</view>
 							<input class="uni-input" name="nickname" placeholder="请输入委托人" />
@@ -114,9 +115,13 @@
 				<view class="step">下一步</view>
 			</view>
 			<view v-if="current === 1">
-				<text class="content-text"><Info /></text>
+				<view class="content-text"><Info /></view>
 			</view>
-			<view v-if="current === 2"><text class="content-text">选项卡3的内容</text></view>
+			<view v-if="current === 2">
+				<view class="content-text">
+					<Attachment/>
+					</view>
+					</view>
 		</view>
 	</view>
 </template>
@@ -125,6 +130,7 @@
 var graceChecker = require('../../common/graceChecker.js');
 import permision from '../../common/permission.js';
 import Info from './info.vue';
+import Attachment from './attachment.vue'
 
 function getDate(type) {
 	const date = new Date();
@@ -146,7 +152,8 @@ function getDate(type) {
 var sourceType = [['camera'], ['album'], ['camera', 'album']];
 export default {
 	components: {
-		Info
+		Info,
+		Attachment
 	},
 	data() {
 		return {
@@ -316,7 +323,9 @@ export default {
 uni-textarea {
 	width: 100% !important;
 }
-
+.uni-common-mt{
+	border-bottom: 1px solid #eee;
+}
 .box {
 	.input {
 		display: flex;

@@ -4,29 +4,22 @@
 			<view class="info-top">
 				<view class="uni-flex uni-row" style="-webkit-justify-content: space-between;justify-content: space-between;">
 					<view class="info-btn"><button class="mini-btn btn" type="primary" size="mini" @click="addHandle">新增检材</button></view>
-					<view class="info-del">删除</view>
+					<view class="info-del" @click="delHandle">
+						<uni-icons type="trash" color='#ffffff' size="15" />
+					</view>
 				</view>
 			</view>
 			<view class="info-content">
-				<view class="uni-flex uni-row">
-					<view
-						class="text1 uni-flex"
-						style="-webkit-flex: 1;flex: 1;height: 200rpx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: flex-start;align-items: flex-start;"
-					>
-						检材1
-					</view>
-					<view
-						class="text1 uni-flex"
-						style="-webkit-flex: 1;flex: 1;height: 200rpx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: flex-start;align-items: flex-start;"
-					>
-						检材1
-					</view>
-					<view
-						class="text1 uni-flex"
-						style="-webkit-flex: 1;flex: 1;height: 200rpx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: flex-start;align-items: flex-start;"
-					>
-						检材1
-					</view>
+				<view class="uni-flex uni-row" style="-webkit-flex-wrap: wrap;flex-wrap: wrap;">
+					<view class="text1" style="width: 185rpx;" @click="checkoutDetail">
+						<view class="del" v-show="show" @click="removeHandle"><uni-icons type="minus-filled" color='#f00' size="20" /></view>
+							折行
+						</view>
+					<view class="text1" style="width: 185rpx;"><view class="del" v-show="show"><uni-icons type="minus-filled" color='#f00' size="20" /></view>折行</view>
+					<view class="text1" style="width: 185rpx;"><view class="del" v-show="show"><uni-icons type="minus-filled" color='#f00' size="20" /></view>折行</view>
+					<view class="text1" style="width: 185rpx;"><view class="del" v-show="show"><uni-icons type="minus-filled" color='#f00' size="20" /></view>折行</view>
+					<view class="text1" style="width: 185rpx;"><view class="del" v-show="show"><uni-icons type="minus-filled" color='#f00' size="20" /></view>折行</view>
+					<view class="text1" style="width: 185rpx;"><view class="del" v-show="show"><uni-icons type="minus-filled" color='#f00' size="20" /></view>折行</view>
 				</view>
 			</view>
 		</view>
@@ -34,13 +27,21 @@
 			<view class="pre">上一步</view>
 			<view class="next">上一步</view>
 		</view>
+		<uni-popup id="popupDialog" ref="popupDialog" type="dialog" @change="change">
+			<uni-popup-dialog type="error" title="通知" content="是否删除当前检材!" :before-close="true" @confirm="dialogConfirm" @close="dialogClose"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
+	
 export default {
+	components:{uniPopupDialog},
 	data() {
-		return {};
+		return {
+			show:false
+		};
 	},
 	methods: {
 		addHandle() {
@@ -48,6 +49,40 @@ export default {
 			uni.navigateTo({
 				url: './info-detail'
 			});
+		},
+		delHandle(){
+			this.show=!this.show;
+		},
+		removeHandle(){
+			this.$refs.popupDialog.open()
+		},
+		checkoutDetail(){
+			uni.navigateTo({
+				url: './info-detail'
+			});
+		},
+		/**
+		 * popup 状态发生变化触发
+		 * @param {Object} e
+		 */
+		change(e) {
+			console.log('popup ' + e.type + ' 状态', e.show)
+		},
+		dialogConfirm(done) {
+			this.$refs.popupDialog.open()
+			console.log('点击确认');
+			// 需要执行 done 才能关闭对话框
+			done()
+		},
+		/**
+		 * 对话框取消按钮
+		 */
+		dialogClose(done) {
+			// this.msgType = 'info'
+			// this.message = '点击了对话框的取消按钮'
+			this.$refs.popupDialog.open()
+			// 需要执行 done 才能关闭对话框
+			done()
 		}
 	}
 };
@@ -65,17 +100,20 @@ uni-button[size='mini'] {
 			.info-btn {
 				width: 120px;
 				height: 45px;
+				
 			}
 			.info-del {
 				text-align: center;
 				background-color: #178fff;
 				color: #fff;
-				padding: 6px 8px;
+				width: 30px;
+				height: 30px;
 				border-radius: 50%;
 			}
 		}
 		.info-content {
 			.text1 {
+				position: relative;
 				display: flex;
 				justify-content: center;
 				list-style: none;
@@ -87,6 +125,11 @@ uni-button[size='mini'] {
 				border-radius: 5px;
 				border: 1px solid #1890ff;
 				margin: 2%;
+				.del{
+					position: absolute;
+					right: -10px;
+					top: -20px;
+				}
 			}
 		}
 	}
