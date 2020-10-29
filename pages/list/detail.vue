@@ -20,8 +20,8 @@ export default {
 
 <style lang="less" scoped>
 .detail {
-	padding: 30px;
-	
+	padding: 20px;
+
 	.title {
 		font-size: 20px;
 		font-weight: 600;

@@ -1,25 +1,40 @@
 <template>
-	<view>
-		<uni-list>
-			<uni-list-chat
-				v-for="item in listData"
-				:key="item.id"
-				:title="item.author_name"
-				:avatar="item.cover"
-				:note="item.title"
-				:time="item.published_at"
-				:clickable="true"
-				badge-positon="left"
-				badge-text="dot"
-				@click="listHandle(item)"
-			></uni-list-chat>
-		</uni-list>
+	<view class="box">
+		<view :class="{ 'box-list': show }">
+			<checkbox-group @change="checkboxChange">
+				<view class="list" v-for="(item, index) in listData" :key="index">
+					<view class="uni-flex uni-row">
+						<view class="text check" v-if="show"><checkbox :value="item.id" /></view>
+						<view class="text img"><image :src="item.cover" /></view>
+						<view class="text contain" style="-webkit-flex: 1;flex: 1;" @click="listHandle(item)">
+							<view class="uni-flex uni-row" style="-webkit-justify-content: space-between;justify-content: space-between;">
+								<view class="text title">
+									{{ item.author_name }}
+									<text class="dot"></text>
+								</view>
+								<view class="text time">{{ item.published_at }}</view>
+							</view>
+							<view class="contain-info">{{ item.title }}</view>
+						</view>
+					</view>
+				</view>
+			</checkbox-group>
+		</view>
+		<view class="bottom" v-if="show">
+			<view class="cancel" @click="cancelHandle">取消</view>
+			<view class="sure" @click="sureHandle">确定</view>
+		</view>
+		<uni-popup id="popupDialog" ref="popupDialog" type="dialog">
+			<uni-popup-dialog type="error" title="通知" content="是否删除当前消息通知!" :before-close="true" @confirm="dialogConfirm" @close="dialogClose"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
+
 export default {
-	components: {},
+	components: { uniPopupDialog },
 	data() {
 		return {
 			UNITS: {
@@ -32,231 +47,200 @@ export default {
 			},
 			listData: [
 				{
-					id: 1,
+					id: '1',
 					author_name: '响水网安',
 					cover: '../../static/img/msg.png',
 					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
 					published_at: '2020-10-26'
 				},
 				{
-					id: 2,
+					id: '2',
 					author_name: '大丰网安',
 					cover: '../../static/img/msg.png',
 					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
 					published_at: '2020-10-26'
 				},
 				{
-					id: 3,
+					id: '3',
 					author_name: '盐都网安',
 					cover: '../../static/img/msg.png',
 					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
 					published_at: '2020-10-26'
 				},
 				{
-					id: 4,
+					id: '4',
 					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '5',
+					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '6',
+					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '7',
+					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '8',
+					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '9',
+					author_name: '东台网安',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '10',
+					author_name: '东台网安2',
+					cover: '../../static/img/msg.png',
+					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
+					published_at: '2020-10-26'
+				},
+				{
+					id: '11',
+					author_name: '东台网安1',
 					cover: '../../static/img/msg.png',
 					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
 					published_at: '2020-10-26'
 				}
 			],
-			avatarList: []
+			avatarList: [],
+			show: false
 		};
 	},
-	onLoad() {
-		// this.getList();
-	},
+	onLoad() {},
 	methods: {
 		listHandle(item) {
-			console.log(item);
 			uni.navigateTo({
 				url: './detail?id=' + item.id
 			});
+		},
+		onNavigationBarButtonTap(e) {
+			if (e.index == 0) {
+				console.log('点击');
+				this.show = !this.show;
+			}
+		},
+		checkboxChange: function(e) {
+			console.log(e.detail.value);
+		},
+		cancelHandle() {
+			this.show = false;
+		},
+		sureHandle() {
+			this.$refs.popupDialog.open();
+		},
+		dialogConfirm(done) {
+			this.$refs.popupDialog.open();
+			console.log('点击确认');
+			this.show = false;
+			// 需要执行 done 才能关闭对话框
+			done();
+		},
+		/**
+		 * 对话框取消按钮
+		 */
+		dialogClose(done) {
+			this.$refs.popupDialog.open();
+			this.show = false;
+			// 需要执行 done 才能关闭对话框
+			done();
 		}
-		// getList() {
-		// 	var data = {
-		// 		column: 'id,post_id,title,author_name,cover,published_at' //需要的字段名
-		// 	};
-
-		// 	uni.request({
-		// 		url: 'https://unidemo.dcloud.net.cn/api/news',
-		// 		data: data,
-		// 		success: data => {
-		// 			if (data.statusCode == 200) {
-		// 				let list = this.setTime(data.data);
-		// 				list = this.reload ? list : this.listData.concat(list);
-		// 				list.map(item => {
-		// 					item.text = Math.floor(Math.random() * (1 - 20) + 20);
-		// 					return item;
-		// 				});
-		// 				this.listData = this.getRandomArrayElements(list, 3);
-		// 			}
-		// 		},
-		// 		fail: (data, code) => {
-		// 			console.log('fail' + JSON.stringify(data));
-		// 		}
-		// 	});
-		// },
-		// getRandomArrayElements(arr, count) {
-		// 	var shuffled = arr.slice(0),
-		// 		i = arr.length,
-		// 		min = i - count,
-		// 		temp,
-		// 		index;
-		// 	while (i-- > min) {
-		// 		index = Math.floor((i + 1) * Math.random());
-		// 		temp = shuffled[index];
-		// 		shuffled[index] = shuffled[i];
-		// 		shuffled[i] = temp;
-		// 	}
-		// 	return shuffled.slice(min);
-		// },
-		// setTime(items) {
-		// 	var newItems = [];
-		// 	items.forEach(e => {
-		// 		newItems.push({
-		// 			author_name: e.author_name,
-		// 			cover: e.cover,
-		// 			id: e.id,
-		// 			post_id: e.post_id,
-		// 			published_at: this.format(e.published_at),
-		// 			title: e.title
-		// 		});
-		// 	});
-		// 	return newItems;
-		// },
-		// format(dateStr) {
-		// 	var date = this.parse(dateStr);
-		// 	var diff = Date.now() - date.getTime();
-		// 	if (diff < this.UNITS['天']) {
-		// 		return this.humanize(diff);
-		// 	}
-		// 	var _format = function(number) {
-		// 		return number < 10 ? '0' + number : number;
-		// 	};
-		// 	return date.getFullYear() + '-' + _format(date.getMonth() + 1) + '-' + _format(date.getDate()) + ' ' + _format(date.getHours()) + ':' + _format(date.getMinutes());
-		// },
-		// parse(str) {
-		// 	//将"yyyy-mm-dd HH:MM:ss"格式的字符串，转化为一个Date对象
-		// 	var a = str.split(/[^0-9]/);
-		// 	return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
-		// }
 	}
 };
 </script>
 
-<style>
-@charset "UTF-8";
-
-/* 头条小程序组件内不能引入字体 */
-/* #ifdef MP-TOUTIAO */
-@font-face {
-	font-family: uniicons;
-	font-weight: normal;
-	font-style: normal;
-	src: url('~@/static/uni.ttf') format('truetype');
+<style lang="less" scoped>
+uni-view {
+	line-height: 1.5;
 }
+.box {
+	.box-list {
+		margin-bottom: 60px;
+		z-index: -999;
+	}
+	.list {
+		border-bottom: 1px solid #eee;
+		padding-bottom: 10px;
+		.check {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding-left: 10px;
+		}
+		.img {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0 10px;
 
-/* #endif */
-/* #ifndef APP-NVUE */
-page {
-	display: flex;
-	flex-direction: column;
-	box-sizing: border-box;
-	background-color: #efeff4;
-	min-height: 100%;
-	height: auto;
-}
-
-view {
-	font-size: 14px;
-	line-height: inherit;
-}
-
-.example {
-	padding: 0 15px 15px;
-}
-
-.example-info {
-	padding: 15px;
-	color: #3b4144;
-	background: #ffffff;
-}
-
-.example-body {
-	/* #ifndef APP-NVUE */
-	display: flex;
-	/* #endif */
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	padding: 0;
-	font-size: 14px;
-	background-color: #ffffff;
-}
-
-/* #endif */
-.example {
-	padding: 0 15px;
-}
-
-.example-info {
-	/* #ifndef APP-NVUE */
-	display: block;
-	/* #endif */
-	padding: 15px;
-	color: #3b4144;
-	background-color: #ffffff;
-	font-size: 14px;
-	line-height: 20px;
-}
-
-.example-info-text {
-	font-size: 14px;
-	line-height: 20px;
-	color: #3b4144;
-}
-
-.example-body {
-	flex-direction: column;
-	padding: 15px;
-	background-color: #ffffff;
-}
-
-.word-btn-white {
-	font-size: 18px;
-	color: #ffffff;
-}
-
-.word-btn {
-	/* #ifndef APP-NVUE */
-	display: flex;
-	/* #endif */
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	border-radius: 6px;
-	height: 48px;
-	margin: 15px;
-	background-color: #007aff;
-}
-
-.word-btn--hover {
-	background-color: #4ca2ff;
-}
-
-.chat-custom-right {
-	flex: 1;
-	/* #ifndef APP-NVUE */
-	display: flex;
-	/* #endif */
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-end;
-}
-
-.chat-custom-text {
-	font-size: 12px;
-	color: #999;
+			image {
+				width: 50px;
+				height: 50px;
+			}
+		}
+		.contain {
+			padding: 8px;
+			.title {
+				font-size: 16px;
+				font-weight: 600;
+				.dot {
+					display: inline-block;
+					width: 10px;
+					height: 10px;
+					background-color: #f00;
+					border-radius: 50%;
+					margin-left: 10px;
+				}
+			}
+			.time {
+				color: #666;
+			}
+		}
+	}
+	.list:nth-last-child(1) {
+		border-bottom: none;
+	}
+	.bottom {
+		width: 100%;
+		height: 45px;
+		line-height: 45px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+		font-size: 18px;
+		z-index: 999;
+		border-top: 1px solid #eee;
+		background-color: #fff;
+		.cancel {
+			margin-left: 25px;
+		}
+		.sure {
+			margin-right: 25px;
+			color: #1890ff;
+		}
+	}
 }
 </style>

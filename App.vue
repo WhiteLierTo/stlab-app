@@ -22,4 +22,8 @@ uni-page-body {
 .uni-textarea-textarea {
 	border: 1px solid #eee;
 }
+.uni-textarea-placeholder {
+	padding: 15px !important;
+	font-size: 14px;
+}
 </style>

@@ -1,0 +1,69 @@
+.uni-form-item .title.data-v-7042ba68 {
+  padding: 20rpx 0;
+}
+.uni-input.data-v-7042ba68 {
+  border: 1px solid #eee;
+}
+uni-textarea.data-v-7042ba68 {
+  width: 100% !important;
+}
+uni-button.data-v-7042ba68 {
+  border-radius: inherit !important;
+}
+.uni-uploader__input-box.data-v-7042ba68 {
+  width: 100%;
+  border: 1px dashed #97c4ee;
+}
+.uni-uploader__input-box.data-v-7042ba68:before {
+  background-color: #97c4ee;
+}
+.uni-uploader__input-box.data-v-7042ba68:after {
+  background-color: #97c4ee;
+}
+.box .input.data-v-7042ba68 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  line-height: 45px;
+}
+.box .input .jigou.data-v-7042ba68 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.box .input .btn.data-v-7042ba68 {
+  width: 80px;
+  line-height: 41px;
+}
+.box .input .btn-info.data-v-7042ba68 {
+  width: 120px;
+  line-height: 45px;
+}
+.box .switch.data-v-7042ba68 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.box .star.data-v-7042ba68 {
+  color: #f00;
+}
+.box .step.data-v-7042ba68 {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #fff;
+  background-color: #178fff;
+  margin-top: 25px;
+}
+

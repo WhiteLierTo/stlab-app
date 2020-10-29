@@ -4,7 +4,8 @@
     "pages/online/index",
     "pages/online/info-detail",
     "pages/list/index",
-    "pages/list/detail"
+    "pages/list/detail",
+    "pages/my/index"
   ],
   "subPackages": [],
   "window": {
@@ -13,5 +14,26 @@
     "navigationBarBackgroundColor": "#178fff",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#007AFF",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/img/home.png",
+        "selectedIconPath": "static/img/home-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "static/img/my.png",
+        "selectedIconPath": "static/img/my-active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap99.json"
 }

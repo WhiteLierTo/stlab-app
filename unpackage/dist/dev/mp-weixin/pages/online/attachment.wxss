@@ -1,8 +1,41 @@
-
-.cell-pd {
-	padding: 22rpx 30rpx;
+.uni-uploader__input-box {
+  width: 100%;
+  border: 1px dashed #97c4ee;
 }
-.list-pd {
-	margin-top: 50rpx;
+.uni-uploader__input-box:before {
+  background-color: #97c4ee;
+}
+.uni-uploader__input-box:after {
+  background-color: #97c4ee;
+}
+.uni-common-mt {
+  margin-bottom: 50px;
+}
+.info-bottom {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.info-bottom .pre {
+  width: 50%;
+  background-color: #79bffd;
+  height: 50px;
+  line-height: 50px;
+}
+.info-bottom .next {
+  width: 50%;
+  background-color: #1890ff;
+  height: 50px;
+  line-height: 50px;
 }
 

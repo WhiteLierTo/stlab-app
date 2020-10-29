@@ -1,235 +1,170 @@
 <template>
 	<view>
-		<page-head :title="title"></page-head>
 		<view class="uni-common-mt">
 			<form>
-				<view class="uni-list">
-					<view class="uni-list-cell">
-						<view class="uni-list-cell-left">
-							<view class="uni-label">图片来源</view>
-						</view>
-						<view class="uni-list-cell-right">
-							<picker :range="sourceType" @change="sourceTypeChange" :value="sourceTypeIndex" mode="selector">
-								<view class="uni-input">{{sourceType[sourceTypeIndex]}}</view>
-							</picker>
-						</view>
-					</view>
-
-					<view class="uni-list-cell">
-						<view class="uni-list-cell-left">
-							<view class="uni-label">图片质量</view>
-						</view>
-						<view class="uni-list-cell-right">
-							<picker :range="sizeType" @change="sizeTypeChange" :value="sizeTypeIndex" mode="selector">
-								<view class="uni-input">{{sizeType[sizeTypeIndex]}}</view>
-							</picker>
-						</view>
-					</view>
-
-					<view class="uni-list-cell">
-						<view class="uni-list-cell-left">
-							<view class="uni-label">数量限制</view>
-						</view>
-						<view class="uni-list-cell-right">
-							<picker :range="count" @change="countChange" mode="selector">
-								<view class="uni-input">{{count[countIndex]}}</view>
-							</picker>
+				<view class="uni-form-item uni-column">
+					<view class="title">立案委托书</view>
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image, index) in imageList" :key="index">
+									<view class="uni-uploader__file"><image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image></view>
+								</block>
+								<view class="uni-uploader__input-box"><view class="uni-uploader__input" @tap="chooseImage(1)"></view></view>
+							</view>
 						</view>
 					</view>
 				</view>
-
-
-				<view class="uni-list list-pd">
-					<view class="uni-list-cell cell-pd">
-						<view class="uni-uploader">
-							<view class="uni-uploader-head">
-								<view class="uni-uploader-title">点击可预览选好的图片</view>
-								<view class="uni-uploader-info">{{imageList.length}}/9</view>
+				<view class="uni-form-item uni-column">
+					<view class="title">受案登记表</view>
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image, index) in imageList1" :key="index">
+									<view class="uni-uploader__file"><image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage1"></image></view>
+								</block>
+								<view class="uni-uploader__input-box"><view class="uni-uploader__input" @tap="chooseImage(2)"></view></view>
 							</view>
-							<view class="uni-uploader-body">
-								<view class="uni-uploader__files">
-									<block v-for="(image,index) in imageList" :key="index">
-										<view class="uni-uploader__file">
-											<image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage"></image>
-										</view>
-									</block>
-									<view class="uni-uploader__input-box">
-										<view class="uni-uploader__input" @tap="chooseImage"></view>
-									</view>
-								</view>
+						</view>
+					</view>
+				</view>
+				<view class="uni-form-item uni-column">
+					<view class="title">扣押清单</view>
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image, index) in imageList2" :key="index">
+									<view class="uni-uploader__file"><image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage2"></image></view>
+								</block>
+								<view class="uni-uploader__input-box"><view class="uni-uploader__input" @tap="chooseImage(3)"></view></view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="uni-form-item uni-column">
+					<view class="title">其他材料</view>
+					<view class="uni-uploader">
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image, index) in imageList3" :key="index">
+									<view class="uni-uploader__file"><image class="uni-uploader__img" :src="image" :data-src="image" @tap="previewImage3"></image></view>
+								</block>
+								<view class="uni-uploader__input-box"><view class="uni-uploader__input" @tap="chooseImage(4)"></view></view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</form>
 		</view>
+		<view class="info-bottom">
+			<view class="pre" @click="preHandle">上一步</view>
+			<view class="next" @click="nextHandle">提交</view>
+		</view>
 	</view>
 </template>
 <script>
-	import permision from "@/common/permission.js"
-	var sourceType = [
-		['camera'],
-		['album'],
-		['camera', 'album']
-	]
-	var sizeType = [
-		['compressed'],
-		['original'],
-		['compressed', 'original']
-	]
-	export default {
-		data() {
-			return {
-				title: 'choose/previewImage',
-				imageList: [],
-				sourceTypeIndex: 2,
-				sourceType: ['拍照', '相册', '拍照或相册'],
-				sizeTypeIndex: 2,
-				sizeType: ['压缩', '原图', '压缩或原图'],
-				countIndex: 8,
-				count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-			}
-		},
-		onUnload() {
-			this.imageList = [],
-				this.sourceTypeIndex = 2,
-				this.sourceType = ['拍照', '相册', '拍照或相册'],
-				this.sizeTypeIndex = 2,
-				this.sizeType = ['压缩', '原图', '压缩或原图'],
-				this.countIndex = 8;
-		},
-		methods: {
-			sourceTypeChange: function(e) {
-				this.sourceTypeIndex = parseInt(e.detail.value)
-			},
-			sizeTypeChange: function(e) {
-				this.sizeTypeIndex = parseInt(e.detail.value)
-			},
-			countChange: function(e) {
-				this.countIndex = e.detail.value;
-			},
-			chooseImage: async function() {
-				// #ifdef APP-PLUS
-				// TODO 选择相机或相册时 需要弹出actionsheet，目前无法获得是相机还是相册，在失败回调中处理
-				if (this.sourceTypeIndex !== 2) {
-					let status = await this.checkPermission();
-					if (status !== 1) {
-						return;
-					}
-				}
-				// #endif
-
-				if (this.imageList.length === 9) {
-					let isContinue = await this.isFullImg();
-					console.log("是否继续?", isContinue);
-					if (!isContinue) {
-						return;
-					}
-				}
-				uni.chooseImage({
-					sourceType: sourceType[this.sourceTypeIndex],
-					sizeType: sizeType[this.sizeTypeIndex],
-					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
-					success: (res) => {
+import permision from '@/common/permission.js';
+var sourceType = [['camera'], ['album'], ['camera', 'album']];
+export default {
+	data() {
+		return {
+			imageList: [],
+			imageList1: [],
+			imageList2: [],
+			imageList3: []
+		};
+	},
+	onUnload() {
+		this.imageList = [];
+		this.imageList1 = [];
+		this.imageList2 = [];
+		this.imageList3 = [];
+	},
+	methods: {
+		chooseImage: async function(item) {
+			uni.chooseImage({
+				success: res => {
+					if (item == 1) {
 						this.imageList = this.imageList.concat(res.tempFilePaths);
-					},
-					fail: (err) => {
-						// #ifdef APP-PLUS
-						if (err['code'] && err.code !== 0 && this.sourceTypeIndex === 2) {
-							this.checkPermission(err.code);
-						}
-						// #endif
-						// #ifdef MP
-						uni.getSetting({
-							success: (res) => {
-								let authStatus = false;
-								switch (this.sourceTypeIndex) {
-									case 0:
-										authStatus = res.authSetting['scope.camera'];
-										break;
-									case 1:
-										authStatus = res.authSetting['scope.album'];
-										break;
-									case 2:
-										authStatus = res.authSetting['scope.album'] && res.authSetting['scope.camera'];
-										break;
-									default:
-										break;
-								}
-								if (!authStatus) {
-									uni.showModal({
-										title: '授权失败',
-										content: 'Hello uni-app需要从您的相机或相册获取图片，请在设置界面打开相关权限',
-										success: (res) => {
-											if (res.confirm) {
-												uni.openSetting()
-											}
-										}
-									})
-								}
-							}
-						})
-						// #endif
+					} else if (item == 2) {
+						this.imageList1 = this.imageList1.concat(res.tempFilePaths);
+					} else if (item == 3) {
+						this.imageList2 = this.imageList2.concat(res.tempFilePaths);
+					} else if (item == 4) {
+						this.imageList3 = this.imageList3.concat(res.tempFilePaths);
 					}
-				})
-			},
-			isFullImg: function() {
-				return new Promise((res) => {
-					uni.showModal({
-						content: "已经有9张图片了,是否清空现有图片？",
-						success: (e) => {
-							if (e.confirm) {
-								this.imageList = [];
-								res(true);
-							} else {
-								res(false)
-							}
-						},
-						fail: () => {
-							res(false)
-						}
-					})
-				})
-			},
-			previewImage: function(e) {
-				var current = e.target.dataset.src
-				uni.previewImage({
-					current: current,
-					urls: this.imageList
-				})
-			},
-			async checkPermission(code) {
-				let type = code ? code - 1 : this.sourceTypeIndex;
-				let status = permision.isIOS ? await permision.requestIOS(sourceType[type][0]) :
-					await permision.requestAndroid(type === 0 ? 'android.permission.CAMERA' :
-						'android.permission.READ_EXTERNAL_STORAGE');
-
-				if (status === null || status === 1) {
-					status = 1;
-				} else {
-					uni.showModal({
-						content: "没有开启权限",
-						confirmText: "设置",
-						success: function(res) {
-							if (res.confirm) {
-								permision.gotoAppSetting();
-							}
-						}
-					})
 				}
-
-				return status;
-			}
+			});
+		},
+		previewImage: function(e) {
+			var current = e.target.dataset.src;
+			uni.previewImage({
+				current: current,
+				urls: this.imageList
+			});
+		},
+		previewImage1: function(e) {
+			var current = e.target.dataset.src;
+			uni.previewImage({
+				current: current,
+				urls: this.imageList1
+			});
+		},
+		previewImage2: function(e) {
+			var current = e.target.dataset.src;
+			uni.previewImage({
+				current: current,
+				urls: this.imageList2
+			});
+		},
+		previewImage3: function(e) {
+			var current = e.target.dataset.src;
+			uni.previewImage({
+				current: current,
+				urls: this.imageList3
+			});
+		},
+		preHandle() {
+			this.$emit('changeCurrent', 1);
 		}
 	}
+};
 </script>
 
-<style>
-	.cell-pd {
-		padding: 22rpx 30rpx;
+<style lang="less">
+.uni-uploader__input-box {
+	width: 100%;
+	border: 1px dashed #97c4ee;
+}
+.uni-uploader__input-box:before {
+	background-color: #97c4ee;
+}
+.uni-uploader__input-box:after {
+	background-color: #97c4ee;
+}
+.uni-common-mt {
+	margin-bottom: 50px;
+}
+.info-bottom {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	.pre {
+		width: 50%;
+		background-color: #79bffd;
+		height: 50px;
+		line-height: 50px;
 	}
-
-	.list-pd {
-		margin-top: 50rpx;
+	.next {
+		width: 50%;
+		background-color: #1890ff;
+		height: 50px;
+		line-height: 50px;
 	}
+}
 </style>

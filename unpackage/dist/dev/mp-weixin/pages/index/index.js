@@ -106,13 +106,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniGrid: function() {
-    return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 61))
+    return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 62))
   },
   uniGridItem: function() {
-    return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 68))
+    return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 69))
   },
   uniBadge: function() {
-    return __webpack_require__.e(/*! import() | components/uni-badge/uni-badge */ "components/uni-badge/uni-badge").then(__webpack_require__.bind(null, /*! @/components/uni-badge/uni-badge.vue */ 75))
+    return __webpack_require__.e(/*! import() | components/uni-badge/uni-badge */ "components/uni-badge/uni-badge").then(__webpack_require__.bind(null, /*! @/components/uni-badge/uni-badge.vue */ 76))
   }
 }
 var render = function() {
@@ -167,12 +167,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
     return {
-      list: [{
+      list: [
+      {
         url: '../../static/img/online.png',
         text: '在线委托',
         path: '../online/index' },
@@ -180,17 +180,39 @@ var _default =
       {
         url: '../../static/img/msg.png',
         text: '消息通知',
-        badge: '2',
-        type: "error",
-        path: '../list/index' }] };
+        badge: ' ',
+        type: 'error',
+        path: '../list/index' },
 
+      {
+        url: '../../static/img/msg.png',
+        text: '我的待办' },
+
+      {
+        url: '../../static/img/online.png',
+        text: '我的已办' },
+
+      {
+        url: '../../static/img/msg.png',
+        text: '我的委托' },
+
+      {
+        url: '../../static/img/msg.png',
+        text: '在线报告' },
+
+      {
+        url: '../../static/img/msg.png',
+        text: '学习园地' },
+
+      {
+        url: '../../static/img/msg.png',
+        text: '智能柜管理' }] };
 
 
 
   },
   methods: {
     tabToHandle: function tabToHandle(path) {
-      console.log(path);
       uni.navigateTo({
         url: path });
 

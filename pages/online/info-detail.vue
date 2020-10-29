@@ -58,6 +58,11 @@ export default {
 	data() {
 		return {};
 	},
+	onLoad() {
+		uni.setNavigationBarTitle({
+			title: '检材2'
+		});
+	},
 	methods: {
 		formSubmit() {},
 		formReset() {}

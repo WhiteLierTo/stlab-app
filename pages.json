@@ -3,7 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "蓝信"
+				"navigationBarTitleText": "蓝信",
+				"transparentTitle": "auto"
 			}
 		},
 		{
@@ -22,12 +23,28 @@
 			"path": "pages/list/index",
 			"style": {
 				"navigationBarTitleText": "消息通知"
+				// "app-plus": {
+				// 	"titleNView": {
+				// 		"buttons": [{
+				// 			"text": "\ue401",
+				// 			"fontSrc": "/static/uni.ttf",
+				// 			"fontSize": "20px",
+				// 			"color": "#fff"
+				// 		}]
+				// 	}
+				// }
 			}
 		},
 		{
 			"path": "pages/list/detail",
 			"style": {
 				"navigationBarTitleText": "消息详情"
+			}
+		},
+		{
+			"path": "pages/my/index",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		}
 
@@ -37,5 +54,24 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#178fff",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/img/home.png",
+				"selectedIconPath": "static/img/home-active.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/my/index",
+				"iconPath": "static/img/my.png",
+				"selectedIconPath": "static/img/my-active.png",
+				"text": "我的"
+			}
+		]
 	}
 }
