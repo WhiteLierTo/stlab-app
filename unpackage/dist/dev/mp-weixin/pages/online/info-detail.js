@@ -185,10 +185,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      array: [{ name: '扣押' }, { name: '受害人提供' }, { name: '其他' }],
+      index: 0 };
+
   },
   onLoad: function onLoad() {
     uni.setNavigationBarTitle({
@@ -196,6 +201,9 @@ var _default =
 
   },
   methods: {
+    bindPickerChange: function bindPickerChange(e) {
+      this.index = e.detail.value;
+    },
     formSubmit: function formSubmit() {},
     formReset: function formReset() {} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

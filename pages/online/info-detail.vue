@@ -5,47 +5,49 @@
 			<form @submit="formSubmit" @reset="formReset">
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材类型</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入检材类型" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材名称</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入检材名称" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材编号</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入检材编号" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材来源</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<picker @change="bindPickerChange" :value="index" :range="array" range-key="name" style="width: 100%;">
+						<input class="uni-input jigou" placeholder="请选择检材来源" name="institutions" v-model="array[index].name" />
+					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">持有人姓名</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入持有人姓名" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">持有人身份证</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入持有人身份证" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">品牌</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入品牌" />
 				</view>
 				<view class="uni-form-item uni-column">
-					<view class="tp">类型</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<view class="tp">型号</view>
+					<input class="uni-input" name="nickname" placeholder="请输入型号" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">颜色</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入颜色" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">特征</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入特征" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">唯一特征</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
+					<input class="uni-input" name="nickname" placeholder="请输入唯一特征" />
 				</view>
 			</form>
 		</view>
@@ -56,7 +58,10 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			array: [{ name: '扣押' }, { name: '受害人提供' }, { name: '其他' }],
+			index: 0
+		};
 	},
 	onLoad() {
 		uni.setNavigationBarTitle({
@@ -64,6 +69,9 @@ export default {
 		});
 	},
 	methods: {
+		bindPickerChange: function(e) {
+			this.index = e.detail.value;
+		},
 		formSubmit() {},
 		formReset() {}
 	}
