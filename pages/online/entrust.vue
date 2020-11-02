@@ -7,25 +7,14 @@
 						<text class="star">*</text>
 						委托单位
 					</view>
-					<input class="uni-input" name="nickname" placeholder="请输入委托单位" />
-				</view>
-				<view class="uni-form-item uni-column">
-					<view class="title">
-						<text class="star">*</text>
-						委托日期
-					</view>
-					<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange" name="date">
-						<view class="uni-input">{{ date }}</view>
-					</picker>
+					<input class="uni-input" name="delegateUnit" placeholder="请输入委托单位" v-model="form.delegateUnit" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						委托时间
 					</view>
-					<picker mode="time" :value="time" start="00:00" end="23:59" @change="bindTimeChange" name="time">
-						<view class="uni-input">{{ time }}</view>
-					</picker>
+					<input class="uni-input jigou" name="delegateDate" placeholder="请选择委托时间" @click="onShowDatePicker('datetime')" v-model="form.delegateDate" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
@@ -33,12 +22,11 @@
 						取证机构
 					</view>
 					<view class="input">
-						<picker @change="bindPickerChange" :value="index" :range="array" range-key="name" style="width: 100%;">
+						<picker @change="orgPickerChange" :value="orgIndex" :range="organizationList" range-key="name" style="width: 100%;">
 							<view class="uni-flex uni-row">
 								<view class="text" style="-webkit-flex: 1;flex: 1;">
-									<input class="uni-input jigou" placeholder="请选择取证机构" name="institutions" v-model="array[index].name" />
+									<input class="uni-input jigou" placeholder="请选择取证机构" name="acceptanceUnit" v-model="form.acceptanceUnit" />
 								</view>
-								<!-- <view class="text" style="width: 100rpx;"><button class="mini-btn btn" type="primary" size="mini">选择</button></view> -->
 							</view>
 						</picker>
 					</view>
@@ -56,55 +44,61 @@
 						<text class="star">*</text>
 						案件名称
 					</view>
-					<input class="uni-input" placeholder="请输入案件名称" name="case" />
+					<input class="uni-input" placeholder="请输入案件名称" name="lawcaseName" v-model="form.lawcaseName" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						案件类型
 					</view>
-					<picker @change="bindPickerChange" :value="index" :range="array" range-key="name">
-						<view class="uni-input">{{ array[index].name }}</view>
+					<picker @change="lawPickerChange" :value="lawIndex" :range="lawList" range-key="name">
+						<view class="text" style="-webkit-flex: 1;flex: 1;">
+							<input class="uni-input jigou" placeholder="请选择案件类型" name="lawcaseType" v-model="form.lawcaseTypeName" />
+						</view>
 					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">案件简要</view>
-					<textarea placeholder="请输入案件简要" name="intro" />
+					<textarea placeholder="请输入案件简要" name="lawcaseDesc" v-model="form.lawcaseDesc" />
 				</view>
 				<view class="uni-form-item uni-column switch">
 					<view class="title">
 						<text class="star">*</text>
 						是否出具文书
 					</view>
-					<switch :checked="checked" @change="switch1Change" />
+					<switch :checked="form.isDoc" @change="switch1Change" />
+				</view>
+				<view class="uni-form-item uni-column">
+					<view class="title">取证需求</view>
+					<textarea placeholder="请输入取证需求" name="delegateItem" v-model="form.delegateItem" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						委托人
 					</view>
-					<input class="uni-input" placeholder="请输入委托人" name="principal" />
+					<input class="uni-input" placeholder="请输入委托人" name="clientName" v-model="form.clientName" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						单位
 					</view>
-					<input class="uni-input" name="unit" placeholder="请输入单位" />
+					<input class="uni-input" name="unit" placeholder="请输入单位" v-model="form.unit" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						警号
 					</view>
-					<input class="uni-input" name="num" placeholder="请输入警号" />
+					<input class="uni-input" name="userNo" placeholder="请输入警号" v-model="form.userNo" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
 						<text class="star">*</text>
 						手机号
 					</view>
-					<input class="uni-input" name="phone" placeholder="请输入手机号" />
+					<input class="uni-input" name="mobile" placeholder="请输入手机号" v-model="form.mobile" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">证件照</view>
@@ -119,19 +113,19 @@
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">委托人2</view>
-					<input class="uni-input" name="principal1" placeholder="请输入委托人" />
+					<input class="uni-input" name="clientName1" placeholder="请输入委托人" v-model="form.clientName1" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">单位</view>
-					<input class="uni-input" name="unit1" placeholder="请输入单位" />
+					<input class="uni-input" name="unit1" placeholder="请输入单位" v-model="form.unit1" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">警号</view>
-					<input class="uni-input" name="num1" placeholder="请输入警号" />
+					<input class="uni-input" name="userNo1" placeholder="请输入警号" v-model="form.userNo1" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">手机号</view>
-					<input class="uni-input" name="phone1" placeholder="请输入手机号" />
+					<input class="uni-input" name="mobile1" placeholder="请输入手机号" v-model="form.mobile1" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">证件照</view>
@@ -147,45 +141,54 @@
 				<view class="uni-btn-v "><button form-type="submit" class="step">下一步</button></view>
 			</form>
 		</view>
+		<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
 	</view>
 </template>
 
 <script>
 var graceChecker = require('../../common/graceChecker.js');
 import permision from '../../common/permission.js';
-
-function getDate(type) {
-	const date = new Date();
-
-	let year = date.getFullYear();
-	let month = date.getMonth() + 1;
-	let day = date.getDate();
-
-	if (type === 'start') {
-		year = year - 60;
-	} else if (type === 'end') {
-		year = year + 2;
-	}
-	month = month > 9 ? month : '0' + month;
-	day = day > 9 ? day : '0' + day;
-
-	return `${year}-${month}-${day}`;
-}
+import MxDatePicker from '@/components/mx-datepicker/mx-datepicker.vue';
+import utils from '../../common/utils.js';
 export default {
+	components: {
+		MxDatePicker
+	},
 	data() {
 		return {
-			array: [{ name: '中国' }, { name: '美国' }, { name: '巴西' }, { name: '日本' }],
-			date: '',
-			// date: getDate({
-			// 	format: true
-			// }),
-			startDate: getDate('start'),
-			endDate: getDate('end'),
-			time: '',
-			index: 0,
-			checked: false,
+			form: {
+				delegateUnit: '',
+				delegateDate: '',
+				acceptanceUnit: '',
+				acceptanceUnitCode: '',
+				lawcaseName: '',
+				lawcaseType: '',
+				lawcaseTypeName: '',
+				lawcaseDesc: '',
+				isDoc: true,
+				delegateItem: '',
+				clientName: '',
+				unit: '',
+				mobile: '',
+				userNo: '',
+				clientName1: '',
+				mobile1: '',
+				unit1: '',
+				userNo1: ''
+			},
+			lawcaseCards: '',
+			lawcaseCards1: '',
+			lawList: [],
+			organizationList: [],
+			lawObj: {},
+			orgObj: {},
+			lawIndex: -1,
+			orgIndex: -1,
 			imageList: [],
-			imageList1: []
+			imageList1: [],
+			showPicker: false,
+			type: 'rangetime',
+			value: ''
 		};
 	},
 	onUnload() {
@@ -193,46 +196,79 @@ export default {
 		this.imageList1 = [];
 	},
 	methods: {
-		bindDateChange: function(e) {
-			this.date = e.detail.value;
+		onShowDatePicker(type) {
+			//显示
+			this.type = type;
+			this.showPicker = true;
+			this.value = this[type];
 		},
-		bindTimeChange: function(e) {
-			this.time = e.detail.value;
+		onSelected(e) {
+			//选择
+			this.showPicker = false;
+			if (e) {
+				this[this.type] = e.value;
+				this.form.delegateDate = this.$utils.dateFormat('YYYY-mm-dd HH:MM:SS', e.date);
+			}
 		},
-		bindPickerChange: function(e) {
-			this.index = e.detail.value;
+		//案件
+		lawPickerChange: function(e) {
+			this.lawIndex = e.detail.value;
+			this.form.lawcaseTypeName = this.lawList[this.lawIndex];
+			const currentKey = this.$utils.findKey(this.lawObj, this.lawList[this.lawIndex]);
+			this.form.lawcaseType = currentKey;
+		},
+		//机构
+		orgPickerChange: function(e) {
+			this.orgIndex = e.detail.value;
+			this.form.acceptanceUnit = this.organizationList[this.orgIndex];
+			const currentKey = this.$utils.findKey(this.orgObj, this.organizationList[this.orgIndex]);
+			this.form.acceptanceUnitCode = currentKey;
 		},
 		//是否出具文书
 		switch1Change: function(e) {
-			console.log('switch1 发生 change 事件，携带值为', e.detail.value);
-		},
-		formSubmit: function(e) {
-			//定义表单规则
-			var rule = [
-				{ name: 'nickname', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托单位' },
-				{ name: 'date', checkType: 'notnull', checkRule: '', errorMsg: '请选择委托日期' },
-				{ name: 'time', checkType: 'notnull', checkRule: '', errorMsg: '请选择委托时间' },
-				{ name: 'case', checkType: 'notnull', checkRule: '', errorMsg: '请输入案件名称' },
-				{ name: 'principal', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托人' },
-				{ name: 'unit', checkType: 'notnull', checkRule: '', errorMsg: '请输入单位' },
-				{ name: 'num', checkType: 'notnull', checkRule: '', errorMsg: '请输入警号' },
-				{ name: 'phone', checkType: 'notnull', checkRule: '', errorMsg: '请输入手机号' }
-			];
-			//进行表单检查
-			var formData = e.detail.value;
-			var checkRes = graceChecker.check(formData, rule);
-			if (checkRes) {
-				this.$emit('changeCurrent', 1);
+			if (e.detail.value) {
+				this.form.isDoc = 1;
 			} else {
-				uni.showToast({ title: graceChecker.error, icon: 'none' });
+				this.form.isDoc = 0;
 			}
 		},
 		chooseImage: async function(item) {
 			uni.chooseImage({
 				success: res => {
 					if (item == 1) {
+						if (this.imageList.length > 0) {
+							uni.showToast({
+								title: '上传单张即可',
+								icon: 'none'
+							});
+							return;
+						}
 						this.imageList = this.imageList.concat(res.tempFilePaths);
+						console.log(res.tempFilePaths[0]);
+						let imgFiles = this.imageList[0];
+						// 上传图片
+						// 做成一个上传对象
+						uni.uploadFile({
+							// 需要上传的地址
+							url: 'http://192.168.0.104:8380/delegate/upload',
+							// filePath  需要上传的文件
+							filePath: imgFiles,
+							name: 'file',
+							success(res1) {
+								// 显示上传信息
+								console.log(JSON.parse(res1.data).data);
+								this.lawcaseCards = res1.data;
+								console.log(this.lawcaseCards)
+							}
+						});
 					} else if (item == 2) {
+						if (this.imageList1.length > 0) {
+							uni.showToast({
+								title: '上传单张即可',
+								icon: 'none'
+							});
+							return;
+						}
 						this.imageList1 = this.imageList1.concat(res.tempFilePaths);
 					}
 				}
@@ -251,7 +287,112 @@ export default {
 				current: current,
 				urls: this.imageList1
 			});
+		},
+		formSubmit: function(e) {
+			//定义表单规则
+			var rule = [
+				{ name: 'delegateUnit', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托单位' },
+				{ name: 'delegateDate', checkType: 'notnull', checkRule: '', errorMsg: '请选择委托时间' },
+				{ name: 'acceptanceUnit', checkType: 'notnull', checkRule: '', errorMsg: '请选择取证机构' },
+				{ name: 'lawcaseName', checkType: 'notnull', checkRule: '', errorMsg: '请输入案件名称' },
+				{ name: 'lawcaseType', checkType: 'notnull', checkRule: '', errorMsg: '请输入案件类型' },
+				{ name: 'clientName', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托人' },
+				{ name: 'unit', checkType: 'notnull', checkRule: '', errorMsg: '请输入单位' },
+				{ name: 'userNo', checkType: 'notnull', checkRule: '', errorMsg: '请输入警号' },
+				{ name: 'mobile', checkType: 'notnull', checkRule: '', errorMsg: '请输入手机号' }
+			];
+			//进行表单检查
+			var formData = e.detail.value;
+			var checkRes = graceChecker.check(formData, rule);
+			if (checkRes) {
+				console.log(this.form);
+				console.log(this.lawcaseCards);
+				const {
+					delegateUnit,
+					delegateDate,
+					acceptanceUnit,
+					acceptanceUnitCode,
+					lawcaseName,
+					lawcaseType,
+					lawcaseDesc,
+					isDoc,
+					delegateItem,
+					clientName,
+					unit,
+					mobile,
+					clientName1,
+					unit1,
+					mobile1,
+					userNo,
+					userNo1
+				} = this.form;
+				const params = {
+					delegateUnit,
+					delegateDate,
+					acceptanceUnit,
+					acceptanceUnitCode,
+					lawcaseName,
+					lawcaseType,
+					lawcaseDesc,
+					isDoc: isDoc ? 1 : 0,
+					delegateItem,
+					delegateClientList: [
+						{
+							clientName,
+							unit,
+							mobile,
+							lawcaseCards: this.lawcaseCards,
+							userNo
+						},
+						{
+							clientName: clientName1,
+							unit: unit1,
+							mobile: mobile1,
+							lawcaseCards: this.lawcaseCards1,
+							userNo: userNo1
+						}
+					]
+				};
+				this.$Request.post(this.$api.step1, params).then(res => {
+					console.log(res);
+					if (res.code === 0) {
+						uni.showToast({
+							title: '提交成功',
+							icon: 'none'
+						});
+						const params = {
+							code: 1,
+							value: {
+								delegateId: res.data.delegateId,
+								lawcaseId: res.data.lawcaseId
+							}
+						};
+						console.log(params);
+						this.$emit('changeCurrent', params);
+					} else {
+						uni.showToast({
+							title: '提交失败',
+							icon: 'none'
+						});
+					}
+				});
+			} else {
+				uni.showToast({ title: graceChecker.error, icon: 'none' });
+			}
+		},
+
+		// 委托单位和案件类型
+		getDelegateInfo() {
+			this.$Request.get(this.$api.delegateInfo).then(res => {
+				this.lawObj = res.lawcaseType;
+				this.orgObj = res.sysOrgList;
+				this.lawList = Object.values(res.lawcaseType);
+				this.organizationList = Object.values(res.sysOrgList);
+			});
 		}
+	},
+	mounted() {
+		this.getDelegateInfo();
 	}
 };
 </script>

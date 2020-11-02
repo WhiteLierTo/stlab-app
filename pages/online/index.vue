@@ -6,7 +6,7 @@
 		<view class="content">
 			<view v-if="current === 0"><Entrust @changeCurrent="changeCurrent" /></view>
 			<view v-if="current === 1">
-				<view class="content-text"><Info @changeCurrent="changeCurrent" /></view>
+				<view class="content-text"><Info @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" /></view>
 			</view>
 			<view v-if="current === 2">
 				<view class="content-text"><Attachment @changeCurrent="changeCurrent" /></view>
@@ -31,13 +31,14 @@ export default {
 			items: ['1.委托信息', '2.检材信息', '3.委托附件'],
 			current: 0,
 			activeColor: '#007aff',
-			styleType: 'text'
+			styleType: 'text',
+			delegateId: '',
+			lawcaseId: ''
 		};
 	},
 	methods: {
 		onClickItem(e) {
 			if (this.current !== e.currentIndex) {
-				// this.current = e.currentIndex;
 				uni.showToast({
 					title: '请完成当前步骤！',
 					icon: 'none'
@@ -45,8 +46,15 @@ export default {
 			}
 		},
 		// 根据子组件传值修改父组件
-		changeCurrent(value) {
-			this.current = value;
+		changeCurrent(e) {
+			this.current = e.code;
+			if (e.value) {
+				const { delegateId, lawcaseId } = e.value;
+				this.delegateId = delegateId;
+				this.lawcaseId = lawcaseId;
+				console.log(lawcaseId, delegateId);
+			}
+			console.log(e.value);
 		}
 	}
 };

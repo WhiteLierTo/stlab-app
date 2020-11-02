@@ -29,10 +29,10 @@ module.exports = {
 		var header = {
 			"content-type": headerType,
 		}
-		const token = cache.get("token")
-		if (token) {
-			header.Authorization = "Bearer " + token
-		}
+		// const token = cache.get("token")
+		// if (token) {
+		// 	header.Authorization = "Bearer " + token
+		// }
 		url = this.config("APIHOST") + url;
 		return new Promise((succ, error) => {
 			uni.request({
@@ -60,13 +60,10 @@ module.exports = {
 		var header = {
 			"content-type": headerType
 		}
-		const token = cache.get("token")
-
-
-
-		if (token) {
-			header.Authorization = "Bearer " + token
-		}
+		// const token = cache.get("token")
+		// if (token) {
+		// 	header.Authorization = "Bearer " + token
+		// }
 		let tempUrl = url.slice(0, 10);
 		if (tempUrl === 'mini/login') {
 			header.Authorization = ''

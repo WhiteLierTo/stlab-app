@@ -5,15 +5,17 @@
 			<form @submit="formSubmit" @reset="formReset">
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材类型</view>
-					<input class="uni-input" name="nickname" placeholder="请输入检材类型" />
+					<picker @change="samplePickerChange" :value="sampIndex" :range="sampleList" range-key="name" style="width: 100%;">
+						<view class="uni-flex uni-row">
+							<view class="text" style="-webkit-flex: 1;flex: 1;">
+								<input class="uni-input jigou" placeholder="请选择检材类型" name="sampleType" v-model="form.sampleType" />
+							</view>
+						</view>
+					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材名称</view>
-					<input class="uni-input" name="nickname" placeholder="请输入检材名称" />
-				</view>
-				<view class="uni-form-item uni-column">
-					<view class="tp">检材编号</view>
-					<input class="uni-input" name="nickname" placeholder="请输入检材编号" />
+					<input class="uni-input" name="sampleName" placeholder="请输入检材名称" v-model="form.sampleName" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材来源</view>
@@ -23,10 +25,10 @@
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="tp">持有人姓名</view>
-					<input class="uni-input" name="nickname" placeholder="请输入持有人姓名" />
+					<input class="uni-input" name="sampleOwner" placeholder="请输入持有人姓名" v-model="form.sampleOwner" />
 				</view>
 				<view class="uni-form-item uni-column">
-					<view class="tp">持有人身份证</view>
+					<view class="tp">持有者证件类型</view>
 					<input class="uni-input" name="nickname" placeholder="请输入持有人身份证" />
 				</view>
 				<view class="uni-form-item uni-column">
@@ -60,7 +62,14 @@ export default {
 	data() {
 		return {
 			array: [{ name: '扣押' }, { name: '受害人提供' }, { name: '其他' }],
-			index: 0
+			index: -1,
+			sampIndex: -1,
+			sampleList: [],
+			form: {
+				sampleType: '',
+				sampleName: '',
+				sampleSource:''
+			}
 		};
 	},
 	onLoad() {
@@ -69,6 +78,7 @@ export default {
 		});
 	},
 	methods: {
+		samplePickerChange() {},
 		bindPickerChange: function(e) {
 			this.index = e.detail.value;
 		},

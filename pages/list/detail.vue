@@ -1,8 +1,8 @@
 <template>
 	<view class="detail">
-		<view class="title">南京网安</view>
-		<view class="contain">案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检。</view>
-		<view class="time">2020-10-26</view>
+		<view class="title">{{listDetail.delegateUnit}}</view>
+		<view class="contain">{{listDetail.msgContent}}</view>
+		<view class="time">{{listDetail.createTime}}</view>
 	</view>
 </template>
 
@@ -10,10 +10,13 @@
 export default {
 	components: {},
 	data() {
-		return {};
+		return {
+			listDetail: ''
+		};
 	},
 	onLoad(option) {
-		console.log(option.id);
+		console.log(JSON.parse(option.item));
+		this.listDetail = JSON.parse(option.item);
 	}
 };
 </script>

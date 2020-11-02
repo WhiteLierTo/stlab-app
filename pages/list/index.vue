@@ -5,16 +5,16 @@
 				<view class="list" v-for="(item, index) in listData" :key="index">
 					<view class="uni-flex uni-row">
 						<view class="text check" v-if="show"><checkbox :value="item.id" /></view>
-						<view class="text img"><image :src="item.cover" /></view>
+						<view class="text img"><image src="../../static/img/msg.png" /></view>
 						<view class="text contain" style="-webkit-flex: 1;flex: 1;" @click="listHandle(item)">
 							<view class="uni-flex uni-row" style="-webkit-justify-content: space-between;justify-content: space-between;">
 								<view class="text title">
-									{{ item.author_name }}
+									{{ item.delegateUnit }}
 									<text class="dot"></text>
 								</view>
-								<view class="text time">{{ item.published_at }}</view>
+								<view class="text time">{{ item.createTime }}</view>
 							</view>
-							<view class="contain-info">{{ item.title }}</view>
+							<view class="contain-info">{{ item.msgContent }}</view>
 						</view>
 					</view>
 				</view>
@@ -37,102 +37,29 @@ export default {
 	components: { uniPopupDialog },
 	data() {
 		return {
-			UNITS: {
-				年: 31557600000,
-				月: 2629800000,
-				天: 86400000,
-				小时: 3600000,
-				分钟: 60000,
-				秒: 1000
-			},
-			listData: [
-				{
-					id: '1',
-					author_name: '响水网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '2',
-					author_name: '大丰网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '3',
-					author_name: '盐都网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '4',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '5',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '6',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '7',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '8',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '9',
-					author_name: '东台网安',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '10',
-					author_name: '东台网安2',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				},
-				{
-					id: '11',
-					author_name: '东台网安1',
-					cover: '../../static/img/msg.png',
-					title: '案件编号：JS1815849449,委托编号：公（网）委字【2020】第23号，案件名：202013诈骗案，提交委托成功，请尽快送检',
-					published_at: '2020-10-26'
-				}
-			],
+			listData: [],
 			avatarList: [],
 			show: false
 		};
 	},
-	onLoad() {},
+	mounted() {
+		this.delegateNoticeList();
+	},
 	methods: {
+		delegateNoticeList() {
+			this.$Request.post(this.$api.delegateNoticeList).then(res => {
+				console.log(res);
+				if (res.code == 0) {
+					this.listData = res.data;
+				}
+			});
+		},
 		listHandle(item) {
+			this.$Request.get(this.$api.updateDelegateNotice, item.id).then(res => {
+				console.log(res);
+			});
 			uni.navigateTo({
-				url: './detail?id=' + item.id
+				url: './detail?item=' + JSON.stringify(item)
 			});
 		},
 		onNavigationBarButtonTap(e) {

@@ -125,7 +125,11 @@ export default {
 			});
 		},
 		preHandle() {
-			this.$emit('changeCurrent', 1);
+			const params = {
+				code: 1,
+				value: {}
+			};
+			this.$emit('changeCurrent', params);
 		}
 	}
 };

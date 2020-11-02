@@ -9,33 +9,16 @@
 			</view>
 			<view class="info-content">
 				<view class="uni-flex uni-row" style="-webkit-flex-wrap: wrap;flex-wrap: wrap;">
-					<view class="text1" style="width: 185rpx;" @click="checkoutDetail">
-						<view class="del" v-show="show" @click="removeHandle"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材1
-					</view>
-					<view class="text1" style="width: 185rpx;">
-						<view class="del" v-show="show"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材2
-					</view>
-					<view class="text1" style="width: 185rpx;">
-						<view class="del" v-show="show"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材3
-					</view>
-					<view class="text1" style="width: 185rpx;">
-						<view class="del" v-show="show"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材4
-					</view>
-					<view class="text1" style="width: 185rpx;">
-						<view class="del" v-show="show"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材5
-					</view>
-					<view class="text1" style="width: 185rpx;">
-						<view class="del" v-show="show"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
-						检材6
+					<view class="text1" style="width: 185rpx;" @click="checkoutDetail(item)" v-for="(item, index) in sampleList" :key="index">
+						<view class="del" v-show="show" @click="removeHandle(item)"><uni-icons type="minus-filled" color="#f00" size="20" /></view>
+						{{ item.sampleName }}
 					</view>
 				</view>
 			</view>
 		</view>
+		<!-- #ifdef APP-NVUE -->
+
+		<!-- #endif -->
 		<view class="info-bottom">
 			<view class="pre" @click="preHandle">上一步</view>
 			<view class="next" @click="nextHandle">下一步</view>
@@ -51,10 +34,17 @@ import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 
 export default {
 	components: { uniPopupDialog },
+	props: ['lawcaseId', 'delegateId'],
 	data() {
 		return {
-			show: false
+			show: false,
+			sampleList: [],
+			sampleId: ''
 		};
+	},
+	mounted() {
+		this.getSelectSampleList();
+		console.log('hjjvhh ' + this.lawcaseId);
 	},
 	methods: {
 		addHandle() {
@@ -65,8 +55,9 @@ export default {
 		delHandle() {
 			this.show = !this.show;
 		},
-		removeHandle() {
+		removeHandle(item) {
 			this.$refs.popupDialog.open();
+			this.sampleId = item.sampleId;
 		},
 		checkoutDetail() {
 			uni.navigateTo({
@@ -83,6 +74,16 @@ export default {
 		dialogConfirm(done) {
 			this.$refs.popupDialog.open();
 			console.log('点击确认');
+			this.$Request.get(this.$api.delegateInfo, this.sampleId).then(res => {
+				if (res.code == 0) {
+					uni.showToast({
+						title: '删除成功！',
+						icon: 'none'
+					});
+					this.getSelectSampleList();
+				}
+			});
+
 			// 需要执行 done 才能关闭对话框
 			done();
 		},
@@ -95,10 +96,29 @@ export default {
 			done();
 		},
 		preHandle() {
-			this.$emit('changeCurrent', 0);
+			const params = {
+				code: 0,
+				value: {}
+			};
+			this.$emit('changeCurrent', params);
 		},
 		nextHandle() {
-			this.$emit('changeCurrent', 2);
+			const params = {
+				code: 2,
+				value: {}
+			};
+			this.$emit('changeCurrent', params);
+		},
+		getSelectSampleList() {
+			const params = {
+				lawcaseId:Number(this.lawcaseId),
+				delegateId: Number(this.delegateId)
+			};
+			this.$Request.get(this.$api.selectSampleList, params).then(res => {
+				if (res.code == 0) {
+					this.sampleList = res.data;
+				}
+			});
 		}
 	}
 };
