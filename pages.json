@@ -16,7 +16,7 @@
 		{
 			"path": "pages/online/info-detail",
 			"style": {
-				"navigationBarTitleText": "新增/编辑检材详情"
+				"navigationBarTitleText": "检材详情"
 			}
 		},
 		{

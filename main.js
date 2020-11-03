@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import App from './App'
+//引入vuex
+import store from './store/index.js'
+//把vuex定义成全局组件
+Vue.prototype.$store = store
 import httpApi from './common/httpApi'
 import HttpRequest from './common/httpRequest'
 import HttpCache from './common/cache'
@@ -16,6 +20,7 @@ Vue.prototype.$utils = utils
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+	...App,
+	store
 })
 app.$mount()

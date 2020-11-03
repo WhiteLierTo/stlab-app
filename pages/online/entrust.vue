@@ -77,7 +77,7 @@
 						<text class="star">*</text>
 						委托人
 					</view>
-					<input class="uni-input" placeholder="请输入委托人" name="clientName" v-model="form.clientName" />
+					<input class="uni-input" placeholder="请输入委托人" name="userName" v-model="form.userName" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
@@ -113,7 +113,7 @@
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">委托人2</view>
-					<input class="uni-input" name="clientName1" placeholder="请输入委托人" v-model="form.clientName1" />
+					<input class="uni-input" name="userName1" placeholder="请输入委托人" v-model="form.userName1" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">单位</view>
@@ -167,11 +167,11 @@ export default {
 				lawcaseDesc: '',
 				isDoc: true,
 				delegateItem: '',
-				clientName: '',
+				userName: '',
 				unit: '',
 				mobile: '',
 				userNo: '',
-				clientName1: '',
+				userName1: '',
 				mobile1: '',
 				unit1: '',
 				userNo1: ''
@@ -258,7 +258,7 @@ export default {
 								// 显示上传信息
 								console.log(JSON.parse(res1.data).data);
 								this.lawcaseCards = res1.data;
-								console.log(this.lawcaseCards)
+								console.log(this.lawcaseCards);
 							}
 						});
 					} else if (item == 2) {
@@ -296,7 +296,7 @@ export default {
 				{ name: 'acceptanceUnit', checkType: 'notnull', checkRule: '', errorMsg: '请选择取证机构' },
 				{ name: 'lawcaseName', checkType: 'notnull', checkRule: '', errorMsg: '请输入案件名称' },
 				{ name: 'lawcaseType', checkType: 'notnull', checkRule: '', errorMsg: '请输入案件类型' },
-				{ name: 'clientName', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托人' },
+				{ name: 'userName', checkType: 'notnull', checkRule: '', errorMsg: '请输入委托人' },
 				{ name: 'unit', checkType: 'notnull', checkRule: '', errorMsg: '请输入单位' },
 				{ name: 'userNo', checkType: 'notnull', checkRule: '', errorMsg: '请输入警号' },
 				{ name: 'mobile', checkType: 'notnull', checkRule: '', errorMsg: '请输入手机号' }
@@ -317,10 +317,10 @@ export default {
 					lawcaseDesc,
 					isDoc,
 					delegateItem,
-					clientName,
+					userName,
 					unit,
 					mobile,
-					clientName1,
+					userName1,
 					unit1,
 					mobile1,
 					userNo,
@@ -336,25 +336,26 @@ export default {
 					lawcaseDesc,
 					isDoc: isDoc ? 1 : 0,
 					delegateItem,
-					delegateClientList: [
+					delegateUserList: [
 						{
-							clientName,
+							userName,
 							unit,
 							mobile,
 							lawcaseCards: this.lawcaseCards,
-							userNo
+							userNo,
+							primaryFlag: 1
 						},
 						{
-							clientName: clientName1,
+							userName: userName1,
 							unit: unit1,
 							mobile: mobile1,
 							lawcaseCards: this.lawcaseCards1,
-							userNo: userNo1
+							userNo: userNo1,
+							primaryFlag: 0
 						}
 					]
 				};
 				this.$Request.post(this.$api.step1, params).then(res => {
-					console.log(res);
 					if (res.code === 0) {
 						uni.showToast({
 							title: '提交成功',
@@ -364,7 +365,9 @@ export default {
 							code: 1,
 							value: {
 								delegateId: res.data.delegateId,
-								lawcaseId: res.data.lawcaseId
+								lawcaseId: res.data.lawcaseId,
+								createUid: res.data.createUid,
+								sampleType: res.data.sampleType
 							}
 						};
 						console.log(params);
@@ -386,6 +389,13 @@ export default {
 			this.$Request.get(this.$api.delegateInfo).then(res => {
 				this.lawObj = res.lawcaseType;
 				this.orgObj = res.sysOrgList;
+
+				const { mobile, unit, userName, userNo } = res.delegateClient;
+				this.form.mobile = mobile;
+				this.form.unit = unit;
+				this.form.userName = userName;
+				this.form.userNo = userNo;
+
 				this.lawList = Object.values(res.lawcaseType);
 				this.organizationList = Object.values(res.sysOrgList);
 			});

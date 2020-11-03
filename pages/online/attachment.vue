@@ -3,7 +3,7 @@
 		<view class="uni-common-mt">
 			<form>
 				<view class="uni-form-item uni-column">
-					<view class="title">立案委托书</view>
+					<view class="title">立案委托书{{ lawcaseId }}</view>
 					<view class="uni-uploader">
 						<view class="uni-uploader-body">
 							<view class="uni-uploader__files">
@@ -65,13 +65,19 @@
 <script>
 import permision from '@/common/permission.js';
 var sourceType = [['camera'], ['album'], ['camera', 'album']];
+
 export default {
+	props: ['lawcaseId', 'delegateId'],
 	data() {
 		return {
 			imageList: [],
 			imageList1: [],
 			imageList2: [],
-			imageList3: []
+			imageList3: [],
+			imgUrl1: '',
+			imgUrl2: '',
+			imgUrl3: '',
+			imgUrl4: ''
 		};
 	},
 	onUnload() {
@@ -80,18 +86,101 @@ export default {
 		this.imageList2 = [];
 		this.imageList3 = [];
 	},
+	onLoad() {
+		console.log(this.delegateId);
+	},
 	methods: {
 		chooseImage: async function(item) {
 			uni.chooseImage({
 				success: res => {
 					if (item == 1) {
 						this.imageList = this.imageList.concat(res.tempFilePaths);
+						let imgFiles = res.tempFilePaths[0];
+						// 上传图片
+						// 做成一个上传对象
+						uni.uploadFile({
+							// 需要上传的地址
+							url: 'http://192.168.0.104:8380/delegate/upload',
+							// filePath  需要上传的文件
+							filePath: imgFiles,
+							name: 'file',
+							formData: {
+								resType: 1,
+								oprType: 1,
+								lawcaseId: this.lawcaseId,
+								delegateId: this.delegateId
+							},
+							success(res) {
+								// 显示上传信息
+								this.imgUrl1 = JSON.parse(res.data).data;
+							}
+						});
 					} else if (item == 2) {
 						this.imageList1 = this.imageList1.concat(res.tempFilePaths);
+						let imgFiles = res.tempFilePaths[0];
+						// 上传图片
+						// 做成一个上传对象
+						uni.uploadFile({
+							// 需要上传的地址
+							url: 'http://192.168.0.104:8380/delegate/upload',
+							// filePath  需要上传的文件
+							filePath: imgFiles,
+							name: 'file',
+							formData: {
+								resType: 2,
+								oprType: 1,
+								lawcaseId: this.lawcaseId,
+								delegateId: this.delegateId
+							},
+							success(res) {
+								// 显示上传信息
+								this.imgUrl2 = JSON.parse(res.data).data;
+							}
+						});
 					} else if (item == 3) {
 						this.imageList2 = this.imageList2.concat(res.tempFilePaths);
+						let imgFiles = res.tempFilePaths[0];
+						// 上传图片
+						// 做成一个上传对象
+						uni.uploadFile({
+							// 需要上传的地址
+							url: 'http://192.168.0.104:8380/delegate/upload',
+							// filePath  需要上传的文件
+							filePath: imgFiles,
+							name: 'file',
+							formData: {
+								resType: 3,
+								oprType: 1,
+								lawcaseId: this.lawcaseId,
+								delegateId: this.delegateId
+							},
+							success(res) {
+								// 显示上传信息
+								this.imgUrl3 = JSON.parse(res.data).data;
+							}
+						});
 					} else if (item == 4) {
 						this.imageList3 = this.imageList3.concat(res.tempFilePaths);
+						let imgFiles = res.tempFilePaths[0];
+						// 上传图片
+						// 做成一个上传对象
+						uni.uploadFile({
+							// 需要上传的地址
+							url: 'http://192.168.0.104:8380/delegate/upload',
+							// filePath  需要上传的文件
+							filePath: imgFiles,
+							name: 'file',
+							formData: {
+								resType: 4,
+								oprType: 1,
+								lawcaseId: this.lawcaseId,
+								delegateId: this.delegateId
+							},
+							success(res) {
+								// 显示上传信息
+								this.imgUrl4 = JSON.parse(res.data).data;
+							}
+						});
 					}
 				}
 			});
@@ -130,6 +219,19 @@ export default {
 				value: {}
 			};
 			this.$emit('changeCurrent', params);
+		},
+		nextHandle() {
+			const params = {
+				lawcaseId: this.lawcaseId,
+				delegateId: this.delegateId,
+				lawcaseFiling: this.imgUrl1,
+				lawcaseRegister: this.imgUrl2,
+				hubLawcaseList: this.imgUrl3,
+				lawcaseOther: this.imgUrl4,
+				oprFlag: 0,
+				registerOrEditSign: 0
+			};
+			this.$Request.post(this.$api.submitDelegate, params).then(res => {});
 		}
 	}
 };

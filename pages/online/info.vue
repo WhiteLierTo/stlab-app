@@ -44,7 +44,11 @@ export default {
 	},
 	mounted() {
 		this.getSelectSampleList();
-		console.log('hjjvhh ' + this.lawcaseId);
+		uni.$on('globleEvent', rel => {
+			if (rel.type == 1) {
+				this.getSelectSampleList();
+			}
+		});
 	},
 	methods: {
 		addHandle() {
@@ -59,9 +63,12 @@ export default {
 			this.$refs.popupDialog.open();
 			this.sampleId = item.sampleId;
 		},
-		checkoutDetail() {
+		checkoutDetail(item) {
+			if (this.show) {
+				return;
+			}
 			uni.navigateTo({
-				url: './info-detail'
+				url: './info-detail?item=' + JSON.stringify(item)
 			});
 		},
 		/**
@@ -73,8 +80,10 @@ export default {
 		},
 		dialogConfirm(done) {
 			this.$refs.popupDialog.open();
-			console.log('点击确认');
-			this.$Request.get(this.$api.delegateInfo, this.sampleId).then(res => {
+			const params = {
+				sampleId: this.sampleId
+			};
+			this.$Request.get(this.$api.delSample, params).then(res => {
 				if (res.code == 0) {
 					uni.showToast({
 						title: '删除成功！',
@@ -103,15 +112,33 @@ export default {
 			this.$emit('changeCurrent', params);
 		},
 		nextHandle() {
+			if (this.sampleList.length == 0) {
+				uni.showToast({
+					title: '请至少新增一个检材！',
+					icon: 'none'
+				});
+				return;
+			}
 			const params = {
-				code: 2,
-				value: {}
+				lawcaseId: Number(this.lawcaseId),
+				delegateId: Number(this.delegateId)
 			};
-			this.$emit('changeCurrent', params);
+			this.$Request.post(this.$api.step2, params).then(res => {
+				if (res.code == 0) {
+					const params = {
+						code: 2,
+						value: {
+							delegateId: this.delegateId,
+							lawcaseId: this.lawcaseId
+						}
+					};
+					this.$emit('changeCurrent', params);
+				}
+			});
 		},
 		getSelectSampleList() {
 			const params = {
-				lawcaseId:Number(this.lawcaseId),
+				lawcaseId: Number(this.lawcaseId),
 				delegateId: Number(this.delegateId)
 			};
 			this.$Request.get(this.$api.selectSampleList, params).then(res => {

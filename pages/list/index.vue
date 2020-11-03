@@ -10,7 +10,7 @@
 							<view class="uni-flex uni-row" style="-webkit-justify-content: space-between;justify-content: space-between;">
 								<view class="text title">
 									{{ item.delegateUnit }}
-									<text class="dot"></text>
+									<text class="dot" v-if="item.isRead == 0"></text>
 								</view>
 								<view class="text time">{{ item.createTime }}</view>
 							</view>
@@ -48,16 +48,16 @@ export default {
 	methods: {
 		delegateNoticeList() {
 			this.$Request.post(this.$api.delegateNoticeList).then(res => {
-				console.log(res);
 				if (res.code == 0) {
 					this.listData = res.data;
 				}
 			});
 		},
 		listHandle(item) {
-			this.$Request.get(this.$api.updateDelegateNotice, item.id).then(res => {
-				console.log(res);
-			});
+			const params = {
+				id: item.id
+			};
+			this.$Request.get(this.$api.updateDelegateNotice, params).then(res => {});
 			uni.navigateTo({
 				url: './detail?item=' + JSON.stringify(item)
 			});

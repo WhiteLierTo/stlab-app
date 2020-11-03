@@ -3,11 +3,11 @@
 		<image src="../../static/img/banner.png" class="banner"></image>
 		<view class="example-body">
 			<uni-grid :column="3" :highlight="true">
-				<uni-grid-item  v-for="(item, index) in list" :index="index" :key="index">
+				<uni-grid-item v-for="(item, index) in list" :index="index" :key="index">
 					<view class="grid-item-box" @click="tabToHandle(item.path)">
 						<image class="image" :src="item.url" mode="aspectFill" />
 						<text class="text">{{ item.text }}</text>
-						<view v-if="item.badge" class="grid-dot"><uni-badge :text="item.badge" :type="item.type" /></view>
+						<view v-if="item.badge" class="grid-dot"><uni-badge :text="item.badge" :type="item.type" v-if="show" /></view>
 					</view>
 				</uni-grid-item>
 			</uni-grid>
@@ -34,35 +34,49 @@ export default {
 				},
 				{
 					url: '../../static/img/msg.png',
-					text: '我的待办',
+					text: '我的待办'
 				},
 				{
 					url: '../../static/img/online.png',
-					text: '我的已办',
+					text: '我的已办'
 				},
 				{
 					url: '../../static/img/msg.png',
-					text: '我的委托',
+					text: '我的委托'
 				},
 				{
 					url: '../../static/img/msg.png',
-					text: '在线报告',
+					text: '在线报告'
 				},
 				{
 					url: '../../static/img/msg.png',
-					text: '学习园地',
+					text: '学习园地'
 				},
 				{
 					url: '../../static/img/msg.png',
-					text: '智能柜管理',
+					text: '智能柜管理'
 				}
-			]
+			],
+			show: false
 		};
+	},
+	mounted() {
+		this.delegateNoticeList();
 	},
 	methods: {
 		tabToHandle(path) {
 			uni.navigateTo({
 				url: path
+			});
+		},
+		delegateNoticeList() {
+			this.$Request.post(this.$api.delegateNoticeList).then(res => {
+				console.log(res);
+				if (res.code == 0) {
+					this.listData = res.data;
+					this.show = this.listData.every(item => item.isRead == 0);
+					console.log(this.show);
+				}
 			});
 		}
 	}
@@ -71,7 +85,7 @@ export default {
 
 <style>
 @charset "UTF-8";
-.banner{
+.banner {
 	width: 100%;
 	/* height: 180px; */
 }
@@ -80,8 +94,8 @@ export default {
 	height: 15px;
 }
 .grid-dot {
-	top: 17px!important;
-	right: 30px!important;
+	top: 17px !important;
+	right: 30px !important;
 }
 /* 头条小程序组件内不能引入字体 */
 /* #ifdef MP-TOUTIAO */

@@ -6,12 +6,15 @@
 		<view class="content">
 			<view v-if="current === 0"><Entrust @changeCurrent="changeCurrent" /></view>
 			<view v-if="current === 1">
-				<view class="content-text"><Info @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" /></view>
+				<view class="content-text">
+					<Info @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" :createUid="createUid" :sampleType="sampleType" />
+				</view>
 			</view>
 			<view v-if="current === 2">
-				<view class="content-text"><Attachment @changeCurrent="changeCurrent" /></view>
+				<view class="content-text"><Attachment @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" /></view>
 			</view>
 		</view>
+		{{ delegateId }}{{ lawcaseId }}
 	</view>
 </template>
 
@@ -33,11 +36,14 @@ export default {
 			activeColor: '#007aff',
 			styleType: 'text',
 			delegateId: '',
-			lawcaseId: ''
+			lawcaseId: '',
+			createUid: '',
+			sampleType: {}
 		};
 	},
 	methods: {
 		onClickItem(e) {
+			// this.current = e.currentIndex
 			if (this.current !== e.currentIndex) {
 				uni.showToast({
 					title: '请完成当前步骤！',
@@ -49,10 +55,12 @@ export default {
 		changeCurrent(e) {
 			this.current = e.code;
 			if (e.value) {
-				const { delegateId, lawcaseId } = e.value;
+				const { delegateId, lawcaseId, createUid, sampleType } = e.value;
 				this.delegateId = delegateId;
 				this.lawcaseId = lawcaseId;
-				console.log(lawcaseId, delegateId);
+				this.createUid = createUid;
+				this.sampleType = sampleType;
+				this.$store.dispatch('updateEntrust', e.value);
 			}
 			console.log(e.value);
 		}
