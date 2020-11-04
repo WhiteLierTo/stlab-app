@@ -3,7 +3,7 @@
 		<view class="uni-common-mt">
 			<form>
 				<view class="uni-form-item uni-column">
-					<view class="title">立案委托书{{ lawcaseId }}</view>
+					<view class="title">立案委托书</view>
 					<view class="uni-uploader">
 						<view class="uni-uploader-body">
 							<view class="uni-uploader__files">
@@ -77,7 +77,11 @@ export default {
 			imgUrl1: '',
 			imgUrl2: '',
 			imgUrl3: '',
-			imgUrl4: ''
+			imgUrl4: '',
+			arr: [],
+			arr1: [],
+			arr2: [],
+			arr3: []
 		};
 	},
 	onUnload() {
@@ -92,93 +96,82 @@ export default {
 	methods: {
 		chooseImage: async function(item) {
 			uni.chooseImage({
+				count: 9, //图片数量
 				success: res => {
 					if (item == 1) {
 						this.imageList = this.imageList.concat(res.tempFilePaths);
 						let imgFiles = res.tempFilePaths[0];
-						// 上传图片
-						// 做成一个上传对象
-						uni.uploadFile({
-							// 需要上传的地址
-							url: 'http://192.168.0.104:8380/delegate/upload',
-							// filePath  需要上传的文件
+
+						this.$Request.uploadFile({
 							filePath: imgFiles,
-							name: 'file',
+							url: 'nasUpload',
 							formData: {
 								resType: 1,
 								oprType: 1,
 								lawcaseId: this.lawcaseId,
 								delegateId: this.delegateId
 							},
-							success(res) {
-								// 显示上传信息
-								this.imgUrl1 = JSON.parse(res.data).data;
+							name: 'file',
+							success: res => {
+								this.arr.push(JSON.parse(res.data).data);
+								this.imgUrl1 = this.arr.toString();
 							}
 						});
 					} else if (item == 2) {
 						this.imageList1 = this.imageList1.concat(res.tempFilePaths);
 						let imgFiles = res.tempFilePaths[0];
 						// 上传图片
-						// 做成一个上传对象
-						uni.uploadFile({
-							// 需要上传的地址
-							url: 'http://192.168.0.104:8380/delegate/upload',
-							// filePath  需要上传的文件
+						this.$Request.uploadFile({
 							filePath: imgFiles,
-							name: 'file',
+							url: 'nasUpload',
 							formData: {
 								resType: 2,
 								oprType: 1,
 								lawcaseId: this.lawcaseId,
 								delegateId: this.delegateId
 							},
-							success(res) {
-								// 显示上传信息
-								this.imgUrl2 = JSON.parse(res.data).data;
+							name: 'file',
+							success: res => {
+								this.arr1.push(JSON.parse(res.data).data);
+								this.imgUrl2 = this.arr1.toString();
 							}
 						});
 					} else if (item == 3) {
 						this.imageList2 = this.imageList2.concat(res.tempFilePaths);
 						let imgFiles = res.tempFilePaths[0];
 						// 上传图片
-						// 做成一个上传对象
-						uni.uploadFile({
-							// 需要上传的地址
-							url: 'http://192.168.0.104:8380/delegate/upload',
-							// filePath  需要上传的文件
+						this.$Request.uploadFile({
 							filePath: imgFiles,
-							name: 'file',
+							url: 'nasUpload',
 							formData: {
 								resType: 3,
 								oprType: 1,
 								lawcaseId: this.lawcaseId,
 								delegateId: this.delegateId
 							},
-							success(res) {
-								// 显示上传信息
-								this.imgUrl3 = JSON.parse(res.data).data;
+							name: 'file',
+							success: res => {
+								this.arr2.push(JSON.parse(res.data).data);
+								this.imgUrl3 = this.arr2.toString();
 							}
 						});
 					} else if (item == 4) {
 						this.imageList3 = this.imageList3.concat(res.tempFilePaths);
 						let imgFiles = res.tempFilePaths[0];
 						// 上传图片
-						// 做成一个上传对象
-						uni.uploadFile({
-							// 需要上传的地址
-							url: 'http://192.168.0.104:8380/delegate/upload',
-							// filePath  需要上传的文件
+						this.$Request.uploadFile({
 							filePath: imgFiles,
-							name: 'file',
+							url: 'nasUpload',
 							formData: {
 								resType: 4,
 								oprType: 1,
 								lawcaseId: this.lawcaseId,
 								delegateId: this.delegateId
 							},
-							success(res) {
-								// 显示上传信息
-								this.imgUrl4 = JSON.parse(res.data).data;
+							name: 'file',
+							success: res => {
+								this.arr3.push(JSON.parse(res.data).data);
+								this.imgUrl4 = this.arr3.toString();
 							}
 						});
 					}
@@ -231,7 +224,14 @@ export default {
 				oprFlag: 0,
 				registerOrEditSign: 0
 			};
-			this.$Request.post(this.$api.submitDelegate, params).then(res => {});
+			this.$Request.post(this.$api.submitDelegate, params).then(res => {
+				if (res.code == 0) {
+					uni.showToast({
+						title: '提交成功',
+						icon: 'none'
+					});
+				}
+			});
 		}
 	}
 };

@@ -35,6 +35,7 @@ module.exports = {
 			header.Authorization = "Bearer " + token
 		}
 		url = this.config("APIHOST") + url;
+
 		return new Promise((succ, error) => {
 			uni.request({
 				url: url,
@@ -90,6 +91,33 @@ module.exports = {
 					error.call(self, e)
 				}
 			})
+		})
+	},
+	// 上传图片封装
+	uploadFile: function(obj) {
+		let url = obj.url;
+		let filePath = obj.filePath; //要上传文件资源的路径。
+		let formData = obj.formData || {};
+		let success = obj.success;
+		let name = obj.name || 'filePath'; //文件对应的 key 
+		let header = {};
+		// const token = cache.get("token")
+		const token = '3796c87f-1b2a-473e-bc34-f7a2e9e03e74'
+		if (token) {
+			header.Authorization = "Bearer " + token
+		}
+		let url1 = this.config("APIHOST") + url;
+		uni.uploadFile({
+			url: url1,
+			filePath: filePath,
+			name: name,
+			formData: formData,
+			header: header,
+			success: function(res) {
+				success(res)
+			},
+			fail: function(res) {},
+			complete: function(res) {},
 		})
 	}
 }

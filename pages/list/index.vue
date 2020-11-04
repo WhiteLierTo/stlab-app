@@ -61,6 +61,7 @@ export default {
 			uni.navigateTo({
 				url: './detail?item=' + JSON.stringify(item)
 			});
+			this.delegateNoticeList();
 		},
 		onNavigationBarButtonTap(e) {
 			if (e.index == 0) {

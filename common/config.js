@@ -1,4 +1,4 @@
-const ROOTPATH = "http://192.168.0.104:8380/delegate/";
+const ROOTPATH = "/api/";
 
 module.exports = {
 	APIHOST: ROOTPATH,

@@ -141,25 +141,34 @@ export default {
 			index: -1,
 			sampIndex: -1,
 			sampleList: [],
-			title: ''
+			title: '',
+			entrustInfo: {}
 		};
 	},
 	computed: {
-		...mapState(['entrustInfo'])
+		// ...mapState(['entrustInfo'])
+	},
+	mounted() {
+		uni.getStorage({
+			key: 'entrustInfo',
+			success: res => {
+				const { delegateId, lawcaseId, createUid, sampleType } = res.data;
+				if (sampleType) {
+					this.sampleList = Object.values(res.data.sampleType);
+				}
+				this.sampleCopy = sampleType;
+				this.form.delegateId = delegateId;
+				this.form.lawcaseId = lawcaseId;
+				this.form.createUid = createUid;
+			}
+		});
 	},
 	onLoad(option) {
-		console.log(this.entrustInfo)
-		const { delegateId, lawcaseId, createUid, sampleType } = this.entrustInfo;
-		this.sampleList = Object.values(sampleType);
-		this.form.delegateId = delegateId;
-		this.form.lawcaseId = lawcaseId;
-		this.form.createUid = createUid;
+		if (option.item) {
+			const info = JSON.parse(option.item);
+			console.log(info);
 
-		const info = JSON.parse(option.item);
-		console.log(JSON.stringify(info))
-		if (info.sampleId) {
-			// this.form = info;
-			
+			this.form = info;
 			this.title = info.sampleName;
 			uni.setNavigationBarTitle({
 				title: this.title
@@ -174,7 +183,7 @@ export default {
 		samplePickerChange(e) {
 			this.sampIndex = e.detail.value;
 			this.form.sampleTypeName = this.sampleList[this.sampIndex];
-			const currentKey = this.$utils.findKey(this.entrustInfo.sampleType, this.sampleList[this.sampIndex]);
+			const currentKey = this.$utils.findKey(this.sampleCopy, this.sampleList[this.sampIndex]);
 			this.form.sampleType = currentKey;
 		},
 		pwdBindPickerChange: function(e) {
@@ -223,7 +232,6 @@ export default {
 				lawcaseId,
 				createUid
 			};
-			console.log('参数' + JSON.stringify(params));
 			this.$Request.post(this.$api.addSample, params).then(res => {
 				console.log('成功');
 				uni.showToast({

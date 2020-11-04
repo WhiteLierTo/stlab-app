@@ -15,7 +15,6 @@ export default {
 		};
 	},
 	onLoad(option) {
-		console.log(JSON.parse(option.item));
 		this.listDetail = JSON.parse(option.item);
 	}
 };

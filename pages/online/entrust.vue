@@ -101,7 +101,7 @@
 					<input class="uni-input" name="mobile" placeholder="请输入手机号" v-model="form.mobile" />
 				</view>
 				<view class="uni-form-item uni-column">
-					<view class="title">证件照</view>
+					<view class="title">证件照{{ imgfile1 }}</view>
 					<view class="uni-uploader-body">
 						<view class="uni-uploader__files">
 							<block v-for="(image, index) in imageList" :key="index">
@@ -151,6 +151,7 @@ import permision from '../../common/permission.js';
 import MxDatePicker from '@/components/mx-datepicker/mx-datepicker.vue';
 import utils from '../../common/utils.js';
 export default {
+	props: ['delegateId'],
 	components: {
 		MxDatePicker
 	},
@@ -176,8 +177,6 @@ export default {
 				unit1: '',
 				userNo1: ''
 			},
-			lawcaseCards: '',
-			lawcaseCards1: '',
 			lawList: [],
 			organizationList: [],
 			lawObj: {},
@@ -188,7 +187,9 @@ export default {
 			imageList1: [],
 			showPicker: false,
 			type: 'rangetime',
-			value: ''
+			value: '',
+			imgfile1: '',
+			imgfile2: ''
 		};
 	},
 	onUnload() {
@@ -244,21 +245,14 @@ export default {
 							return;
 						}
 						this.imageList = this.imageList.concat(res.tempFilePaths);
-						console.log(res.tempFilePaths[0]);
 						let imgFiles = this.imageList[0];
 						// 上传图片
-						// 做成一个上传对象
-						uni.uploadFile({
-							// 需要上传的地址
-							url: 'http://192.168.0.104:8380/delegate/upload',
-							// filePath  需要上传的文件
+						this.$Request.uploadFile({
 							filePath: imgFiles,
 							name: 'file',
-							success(res1) {
-								// 显示上传信息
-								console.log(JSON.parse(res1.data).data);
-								this.lawcaseCards = res1.data;
-								console.log(this.lawcaseCards);
+							url: 'upload',
+							success: res => {
+								this.imgfile1 = JSON.parse(res.data).data;
 							}
 						});
 					} else if (item == 2) {
@@ -270,6 +264,16 @@ export default {
 							return;
 						}
 						this.imageList1 = this.imageList1.concat(res.tempFilePaths);
+						let imgFiles = this.imageList1[0];
+						// 上传图片
+						this.$Request.uploadFile({
+							filePath: imgFiles,
+							name: 'file',
+							url: 'upload',
+							success: res => {
+								this.imgfile2 = JSON.parse(res.data).data;
+							}
+						});
 					}
 				}
 			});
@@ -305,8 +309,6 @@ export default {
 			var formData = e.detail.value;
 			var checkRes = graceChecker.check(formData, rule);
 			if (checkRes) {
-				console.log(this.form);
-				console.log(this.lawcaseCards);
 				const {
 					delegateUnit,
 					delegateDate,
@@ -327,6 +329,7 @@ export default {
 					userNo1
 				} = this.form;
 				const params = {
+					delegateId: this.delegateId || '',
 					delegateUnit,
 					delegateDate,
 					acceptanceUnit,
@@ -341,7 +344,7 @@ export default {
 							userName,
 							unit,
 							mobile,
-							lawcaseCards: this.lawcaseCards,
+							lawcaseCards: this.imgfile1,
 							userNo,
 							primaryFlag: 1
 						},
@@ -349,7 +352,7 @@ export default {
 							userName: userName1,
 							unit: unit1,
 							mobile: mobile1,
-							lawcaseCards: this.lawcaseCards1,
+							lawcaseCards: this.imgfile2,
 							userNo: userNo1,
 							primaryFlag: 0
 						}
@@ -370,7 +373,6 @@ export default {
 								sampleType: res.data.sampleType
 							}
 						};
-						console.log(params);
 						this.$emit('changeCurrent', params);
 					} else {
 						uni.showToast({
@@ -387,17 +389,19 @@ export default {
 		// 委托单位和案件类型
 		getDelegateInfo() {
 			this.$Request.get(this.$api.delegateInfo).then(res => {
-				this.lawObj = res.lawcaseType;
-				this.orgObj = res.sysOrgList;
+				if (res) {
+					this.lawObj = res.lawcaseType;
+					this.orgObj = res.sysOrgList;
 
-				const { mobile, unit, userName, userNo } = res.delegateClient;
-				this.form.mobile = mobile;
-				this.form.unit = unit;
-				this.form.userName = userName;
-				this.form.userNo = userNo;
+					const { mobile, unit, userName, userNo } = res.delegateClient;
+					this.form.mobile = mobile;
+					this.form.unit = unit;
+					this.form.userName = userName;
+					this.form.userNo = userNo;
 
-				this.lawList = Object.values(res.lawcaseType);
-				this.organizationList = Object.values(res.sysOrgList);
+					this.lawList = Object.values(res.lawcaseType);
+					this.organizationList = Object.values(res.sysOrgList);
+				}
 			});
 		}
 	},

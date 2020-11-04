@@ -4,17 +4,16 @@
 			<uni-segmented-control :current="current" :values="items" :style-type="styleType" :active-color="activeColor" @clickItem="onClickItem" />
 		</view>
 		<view class="content">
-			<view v-if="current === 0"><Entrust @changeCurrent="changeCurrent" /></view>
-			<view v-if="current === 1">
+			<view v-show="current === 0"><Entrust @changeCurrent="changeCurrent" :delegateId="delegateId" /></view>
+			<view v-show="current === 1">
 				<view class="content-text">
-					<Info @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" :createUid="createUid" :sampleType="sampleType" />
+					<Info @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" :createUid="createUid" :sampleType="sampleType" :current="current" />
 				</view>
 			</view>
-			<view v-if="current === 2">
+			<view v-show="current === 2">
 				<view class="content-text"><Attachment @changeCurrent="changeCurrent" :delegateId="delegateId" :lawcaseId="lawcaseId" /></view>
 			</view>
 		</view>
-		{{ delegateId }}{{ lawcaseId }}
 	</view>
 </template>
 
@@ -43,7 +42,6 @@ export default {
 	},
 	methods: {
 		onClickItem(e) {
-			// this.current = e.currentIndex
 			if (this.current !== e.currentIndex) {
 				uni.showToast({
 					title: '请完成当前步骤！',
@@ -61,6 +59,11 @@ export default {
 				this.createUid = createUid;
 				this.sampleType = sampleType;
 				this.$store.dispatch('updateEntrust', e.value);
+				//缓存本地
+				uni.setStorage({
+					key: 'entrustInfo',
+					data: e.value
+				});
 			}
 			console.log(e.value);
 		}

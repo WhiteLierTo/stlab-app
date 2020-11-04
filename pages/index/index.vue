@@ -71,7 +71,6 @@ export default {
 		},
 		delegateNoticeList() {
 			this.$Request.post(this.$api.delegateNoticeList).then(res => {
-				console.log(res);
 				if (res.code == 0) {
 					this.listData = res.data;
 					this.show = this.listData.every(item => item.isRead == 0);

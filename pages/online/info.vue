@@ -34,7 +34,7 @@ import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 
 export default {
 	components: { uniPopupDialog },
-	props: ['lawcaseId', 'delegateId'],
+	props: ['lawcaseId', 'delegateId', 'current'],
 	data() {
 		return {
 			show: false,
@@ -50,6 +50,13 @@ export default {
 			}
 		});
 	},
+	watch: {
+		current(val) {
+			if (val == 1) {
+				this.getSelectSampleList();
+			}
+		}
+	},
 	methods: {
 		addHandle() {
 			uni.navigateTo({
@@ -64,6 +71,7 @@ export default {
 			this.sampleId = item.sampleId;
 		},
 		checkoutDetail(item) {
+			console.log(item)
 			if (this.show) {
 				return;
 			}
@@ -107,7 +115,10 @@ export default {
 		preHandle() {
 			const params = {
 				code: 0,
-				value: {}
+				value: {
+					delegateId: this.delegateId,
+					lawcaseId: this.lawcaseId
+				}
 			};
 			this.$emit('changeCurrent', params);
 		},
@@ -137,6 +148,7 @@ export default {
 			});
 		},
 		getSelectSampleList() {
+			console.log(this.lawcaseId, this.delegateId);
 			const params = {
 				lawcaseId: Number(this.lawcaseId),
 				delegateId: Number(this.delegateId)
