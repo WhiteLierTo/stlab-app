@@ -1,16 +1,46 @@
 <template>
 	<view class="warp">
-		<image src="../../static/img/banner.png" class="banner"></image>
-		<view class="example-body">
-			<uni-grid :column="3" :highlight="true">
-				<uni-grid-item v-for="(item, index) in list" :index="index" :key="index">
-					<view class="grid-item-box" @click="tabToHandle(item.path)">
-						<image class="image" :src="item.url" mode="aspectFill" />
-						<text class="text">{{ item.text }}</text>
-						<view v-if="item.badge" class="grid-dot"><uni-badge :text="item.badge" :type="item.type" v-if="show" /></view>
-					</view>
-				</uni-grid-item>
-			</uni-grid>
+		<image src="../../static/img/banner.jpg" class="banner"></image>
+		<view class="info">
+			<view class="opt">
+				<ul>
+					<li>
+						<dl>
+							<dt>11</dt>
+							<dd>待审批</dd>
+						</dl>
+					</li>
+					<li>
+						<dl>
+							<dt>2</dt>
+							<dd>会议提醒</dd>
+						</dl>
+					</li>
+					<li>
+						<dl>
+							<dt>2</dt>
+							<dd>周报</dd>
+						</dl>
+					</li>
+					<li>
+						<dl>
+							<dt>2</dt>
+							<dd>工作汇报</dd>
+						</dl>
+					</li>
+				</ul>
+			</view>
+			<!-- 		<view class="example-body">
+				<uni-grid :column="3" :highlight="true">
+					<uni-grid-item v-for="(item, index) in list" :index="index" :key="index">
+						<view class="grid-item-box" @click="tabToHandle(item.path)">
+							<image class="image" :src="item.url" mode="aspectFill" />
+							<text class="text">{{ item.text }}</text>
+							<view v-if="item.badge" class="grid-dot"><uni-badge :text="item.badge" :type="item.type" v-if="show" /></view>
+						</view>
+					</uni-grid-item>
+				</uni-grid>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -81,6 +111,31 @@ export default {
 	}
 };
 </script>
+
+<style lang="less" scoped>
+.warp {
+	.info {
+		.opt {
+			width: 90%;
+			height: 80px;
+			background-color: #fff;
+			border-radius: 5px;
+			position: absolute;
+			top: 200px;
+			left: 5%;
+			box-shadow: 1px 1px 1px #eeeeee;
+			ul {
+				list-style-type: none;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				li {
+				}
+			}
+		}
+	}
+}
+</style>
 
 <style>
 @charset "UTF-8";

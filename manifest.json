@@ -12,7 +12,7 @@
 			"disableHostCheck": true,
 			"proxy": {
 				"/api": {
-					"target": "http://192.168.0.104:8380/delegate/",
+					"target": "http://192.168.0.105:8380/delegate/",
 					"changeOrigin": true,
 					"secure": false,
 					"pathRewrite": {

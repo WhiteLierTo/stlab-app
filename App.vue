@@ -16,9 +16,6 @@ export default {
 /*每个页面公共css */
 @import './common/uni.css';
 
-uni-page-body {
-	background-color: #fff !important;
-}
 .uni-textarea-textarea {
 	border: 1px solid #eee;
 }
