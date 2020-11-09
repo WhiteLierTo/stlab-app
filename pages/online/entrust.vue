@@ -14,7 +14,8 @@
 						<text class="star">*</text>
 						委托时间
 					</view>
-					<input class="uni-input jigou" name="delegateDate" placeholder="请选择委托时间" @click="onShowDatePicker('datetime')" v-model="form.delegateDate" />
+					<input class="uni-input jigou" name="delegateDate" placeholder="请选择委托时间" disabled @click="onShowDatePicker('datetime')"
+					 v-model="form.delegateDate" />
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">
@@ -25,7 +26,7 @@
 						<picker @change="orgPickerChange" :value="orgIndex" :range="organizationList" range-key="name" style="width: 100%;">
 							<view class="uni-flex uni-row">
 								<view class="text" style="-webkit-flex: 1;flex: 1;">
-									<input class="uni-input jigou" placeholder="请选择取证机构" name="acceptanceUnit" v-model="form.acceptanceUnit" />
+									<input class="uni-input jigou" placeholder="请选择取证机构" disabled name="acceptanceUnit" v-model="form.acceptanceUnit" />
 								</view>
 							</view>
 						</picker>
@@ -53,14 +54,14 @@
 					</view>
 					<picker @change="lawPickerChange" :value="lawIndex" :range="lawList" range-key="name">
 						<view class="text" style="-webkit-flex: 1;flex: 1;">
-							<input class="uni-input jigou" placeholder="请选择案件类型" name="lawcaseType" v-model="form.lawcaseTypeName" />
+							<input class="uni-input jigou" placeholder="请选择案件类型" disabled name="lawcaseType" v-model="form.lawcaseTypeName" />
 						</view>
 					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
 					<view class="title">案件简要</view>
 					<textarea placeholder="请输入案件简要" name="lawcaseDesc" v-model="form.lawcaseDesc" />
-				</view>
+					</view>
 				<view class="uni-form-item uni-column switch">
 					<view class="title">
 						<text class="star">*</text>
@@ -197,6 +198,12 @@ export default {
 		this.imageList1 = [];
 	},
 	methods: {
+		stopKeyborad(){
+			this.$refs.scanTextbox.setAttribute('readonly', 'readonly');
+			setTimeout(() => {
+			    this.$refs.scanTextbox.removeAttribute('readonly');
+			  }, 200);
+		},
 		onShowDatePicker(type) {
 			//显示
 			this.type = type;
@@ -407,6 +414,7 @@ export default {
 	},
 	mounted() {
 		this.getDelegateInfo();
+		document.activeElement.blur();
 	}
 };
 </script>

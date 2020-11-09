@@ -20,7 +20,7 @@
 				<view class="uni-form-item uni-column">
 					<view class="tp">检材来源</view>
 					<picker @change="sourceBindPickerChange" :value="sourceIndex" :range="sourceList" range-key="name" style="width: 100%;">
-						<input class="uni-input jigou" placeholder="请选择检材来源" name="sampleSource" v-model="form.sampleSource" />
+						<input class="uni-input jigou" placeholder="请选择检材来源" disabled name="sampleSource" v-model="form.sampleSource" />
 					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
@@ -30,7 +30,7 @@
 				<view class="uni-form-item uni-column">
 					<view class="tp">持有者证件类型</view>
 					<picker @change="cardBindPickerChange" :value="icardIndex" :range="icardTypeList" range-key="sampleOwnerCardName" style="width: 100%;">
-						<input class="uni-input jigou" placeholder="请选择证件类型" name="sampleOwnerCardType" v-model="form.sampleOwnerCardName" />
+						<input class="uni-input jigou" placeholder="请选择证件类型" disabled name="sampleOwnerCardType" v-model="form.sampleOwnerCardName" />
 					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
@@ -52,7 +52,7 @@
 				<view class="uni-form-item uni-column">
 					<view class="tp">密码类型</view>
 					<picker @change="pwdBindPickerChange" :value="pwdIndex" :range="pwdTypeList" range-key="passwordName" style="width: 100%;">
-						<input class="uni-input jigou" placeholder="请选择检材来源" name="passwordType" v-model="form.passwordName" />
+						<input class="uni-input jigou" placeholder="请选择检材来源" disabled name="passwordType" v-model="form.passwordName" />
 					</picker>
 				</view>
 				<view class="uni-form-item uni-column">
