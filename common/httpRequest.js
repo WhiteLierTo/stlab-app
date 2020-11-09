@@ -30,7 +30,7 @@ module.exports = {
 			"content-type": headerType,
 		}
 		// const token = cache.get("token")
-		const token = '3796c87f-1b2a-473e-bc34-f7a2e9e03e74'
+		const token = '54f2060f-4ef4-4dda-96d0-c75572ef1603'
 		if (token) {
 			header.Authorization = "Bearer " + token
 		}
@@ -63,7 +63,7 @@ module.exports = {
 			"content-type": headerType
 		}
 		// const token = cache.get("token")
-		const token = '3796c87f-1b2a-473e-bc34-f7a2e9e03e74'
+		const token = '54f2060f-4ef4-4dda-96d0-c75572ef1603'
 		if (token) {
 			header.Authorization = "Bearer " + token
 		}
@@ -102,7 +102,7 @@ module.exports = {
 		let name = obj.name || 'filePath'; //文件对应的 key 
 		let header = {};
 		// const token = cache.get("token")
-		const token = '3796c87f-1b2a-473e-bc34-f7a2e9e03e74'
+		const token = '54f2060f-4ef4-4dda-96d0-c75572ef1603'
 		if (token) {
 			header.Authorization = "Bearer " + token
 		}

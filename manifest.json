@@ -8,7 +8,7 @@
 	//H5
 	"h5": {
 		"devServer": {
-			"port": 8080,
+			// "port": 8080,
 			"disableHostCheck": true,
 			"proxy": {
 				"/api": {
