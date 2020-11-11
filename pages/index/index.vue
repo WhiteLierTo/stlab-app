@@ -22,7 +22,7 @@
 							<dd>我的已办</dd>
 						</dl>
 					</li>
-				
+
 					<li>
 						<dl>
 							<dt>2</dt>
@@ -30,6 +30,9 @@
 						</dl>
 					</li>
 				</ul>
+			</view>
+			<view style="width: 92%;margin: 38px auto 0;">
+				<uni-notice-bar scrollable="true" single="true" text="[单行] 这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏"></uni-notice-bar>
 			</view>
 			<view class="example">
 				<view class="example-body">
@@ -49,6 +52,7 @@
 					</uni-grid>
 				</view>
 			</view>
+
 			<view class="example1">
 				<view class="example-body">
 					<view class="example-title">
@@ -111,7 +115,12 @@
 </template>
 
 <script>
+	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue'
+
 	export default {
+		components: {
+			uniNoticeBar
+		},
 		data() {
 			return {
 				list: [{
@@ -120,12 +129,12 @@
 						badge: ' ',
 						type: 'error',
 						path: '../list/index'
-					},{
+					}, {
 						url: '../../static/img/icon1.png',
 						text: '在线委托',
 						path: '../online/index'
 					},
-					
+
 					{
 						url: '../../static/img/icon3.png',
 						text: '我的待办'
@@ -183,11 +192,14 @@
 				width: 92%;
 				height: 85px;
 				background-color: #fff;
-				border-radius: 5px;
+				// border-radius: 5px;
 				position: absolute;
 				top: 200px;
 				left: 4%;
-				box-shadow: 1px 1px 1px #eeeeee;
+				border-top-right-radius: 5px;
+				border-top-left-radius: 5px;
+				border-bottom: 1px solid #f2f2f2;
+				// box-shadow: 1px 1px 1px #eeeeee;
 
 				ul {
 					list-style-type: none;
@@ -214,7 +226,7 @@
 
 			.example {
 				width: 92%;
-				margin: 55px auto 0;
+				margin: 0px auto 0;
 				border-radius: 10px;
 
 				.example-body {
@@ -234,7 +246,7 @@
 
 			.example1 {
 				width: 92%;
-				margin: 15px auto;
+				margin: 10px auto 15px;
 				border-radius: 10px;
 
 				.example-body {
@@ -307,6 +319,12 @@
 
 <style>
 	@charset "UTF-8";
+
+	.uni-noticebar {
+		background-color: #fff !important;
+		border-radius: 3px;
+		padding-top: 12px;
+	}
 
 	.banner {
 		width: 100%;
